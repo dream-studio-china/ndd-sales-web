@@ -9,7 +9,7 @@
 }
 
 * { box-sizing: border-box; }
-html, body, #root { width: 100%; min-height: 100%; margin: 0; }
+html, body { width: 100%; min-height: 100%; margin: 0; }
 body { overflow-x: hidden; background: #020d15; -webkit-tap-highlight-color: transparent; }
 button { font: inherit; color: inherit; border: 0; cursor: pointer; }
 
