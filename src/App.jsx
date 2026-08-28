@@ -30,6 +30,13 @@ const documentedRegionIds = new Set([
   'dadong', 'dongjia', 'meijiang', 'qibao', 'tianlu', 'tianma', 'nantan', 'chakeng',
 ])
 
+// 会城（huicheng）不是产区，而是新会陈皮介绍页，顶部按钮引导进入，地图上隐藏。
+const hiddenRegionIds = new Set(['huicheng'])
+// 暂无独立产区介绍的区域：隐藏其地图名字标签（色块保留）。
+const unnamedRegionIds = new Set(['daao', 'luokeng', 'xijia'])
+const visibleRegions = regions.filter((region) => !hiddenRegionIds.has(region.id))
+const labeledRegions = visibleRegions.filter((region) => !unnamedRegionIds.has(region.id))
+
 // 所有区域使用同一套坐标系和共享顶点，组合后是一张无空隙的完整地图。
 const mapGeometry = {
   huicheng: { d: 'M38 16 45 3 65 4 61 20 55 24 42 32Z', lx: 50, ly: 24 },
@@ -89,6 +96,36 @@ function MapRegion({ region, selected, onClick }) {
       </span>
     </button>
   )
+}
+
+let audioContext = null
+
+function playClickSound() {
+  if (typeof window === 'undefined') return
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext
+    if (!AudioCtx) return
+    audioContext = audioContext || new AudioCtx()
+    if (audioContext.state === 'suspended') audioContext.resume()
+    const now = audioContext.currentTime
+    // 双音：主音 660Hz 短促发声 + 泛音 1320Hz，柔和衰减
+    ;[660, 1320].forEach((freq, index) => {
+      const osc = audioContext.createOscillator()
+      const gain = audioContext.createGain()
+      const start = now + index * 0.008
+      osc.type = 'sine'
+      osc.frequency.setValueAtTime(freq, start)
+      gain.gain.setValueAtTime(0.0001, start)
+      gain.gain.exponentialRampToValueAtTime(index === 0 ? 0.14 : 0.06, start + 0.012)
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.18)
+      osc.connect(gain)
+      gain.connect(audioContext.destination)
+      osc.start(start)
+      osc.stop(start + 0.2)
+    })
+  } catch {
+    // 忽略音频不可用场景
+  }
 }
 
 function TransparentMap() {
@@ -218,6 +255,7 @@ function Overview({ onEnterRegion }) {
       return
     }
     if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(12)
+    playClickSound()
     setSelected(region)
   }
 
@@ -225,6 +263,11 @@ function Overview({ onEnterRegion }) {
     <main className="app-shell overview-screen">
       <div className="ambient ambient-one" />
       <div className="ambient ambient-two" />
+      <a className="chenpi-entry" href="/regions/huicheng" aria-label="了解新会陈皮">
+        <span className="chenpi-entry-dot" aria-hidden="true" />
+        <b>了解新会陈皮</b>
+        <Icon name="arrow" size={14} />
+      </a>
       <section
         ref={mapSectionRef}
         className="map-section"
@@ -245,7 +288,7 @@ function Overview({ onEnterRegion }) {
           <svg className="territory-map" viewBox="0 0 100 150" preserveAspectRatio="xMidYMid meet" aria-label="新会完整销售区域地图">
             <defs>
               <clipPath id="map-outline"><path d={mapOutline} /></clipPath>
-              {regions.map(region => (
+              {visibleRegions.map(region => (
                 <linearGradient key={region.id} id={`terrain-${region.id}`} x1="0" y1="0" x2="1" y2="1">
                   <stop offset="0" stopColor={region.color} />
                   <stop offset="1" stopColor="#11634f" />
@@ -263,7 +306,7 @@ function Overview({ onEnterRegion }) {
             </defs>
             <path className="territory-base" d={mapOutline} />
             <g clipPath="url(#map-outline)">
-              {regions.map(region => (
+              {visibleRegions.map(region => (
                 <path
                   key={region.id}
                 className={`territory-shape ${region.kind === 'sub' ? 'is-subregion' : ''} ${selected?.id === region.id ? 'is-selected' : ''}`}
@@ -305,7 +348,7 @@ function Overview({ onEnterRegion }) {
             )}
             <path className="territory-outline" d={mapOutline} />
           </svg>
-          {regions.map((region) => <MapRegion key={region.id} region={region} selected={selected?.id === region.id} onClick={choose} />)}
+          {labeledRegions.map((region) => <MapRegion key={region.id} region={region} selected={selected?.id === region.id} onClick={choose} />)}
           <div className="map-compass"><b>N</b><i /></div>
         </div>
       </section>

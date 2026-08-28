@@ -100,19 +100,15 @@
     .season-item.active { color: white; background: var(--orange); transform: translateY(-5px); box-shadow: 0 12px 25px rgba(220,111,45,.22); }
     .season-item b { display: block; font-size: 14px; }
     .season-item span { display: block; margin-top: 5px; font-size: 11px; opacity: .72; }
-    .cta { margin-top: 56px; padding: 31px 24px 34px; border-radius: 20px; color: white; background: #173c2a; }
-    .cta-kicker { color: #efb06d; font-size: 12px; letter-spacing: .16em; }
-    .cta h2 { margin-top: 8px; color: white; font-size: 26px; }
-    .cta p { margin: 14px 0 20px; color: rgba(255,255,255,.72); font-size: 14px; }
-    .proof { display: grid; gap: 10px; margin-bottom: 23px; }
-    .proof div { display: flex; align-items: center; gap: 9px; font-size: 14px; }
-    .proof i { width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%; background: rgba(255,255,255,.14); color: #efb06d; font-style: normal; font-size: 12px; }
-    .button { display: block; padding: 14px 16px; border-radius: 12px; color: white; background: var(--orange); text-align: center; text-decoration: none; font-size: 16px; font-weight: 700; }
-    .footer { padding: 34px 20px 44px; text-align: center; color: #8d948e; font-size: 12px; }
-    .footer strong { display: block; margin-bottom: 5px; color: var(--green); font-family: "Songti SC", serif; font-size: 18px; letter-spacing: .15em; }
-    .dock { position: fixed; z-index: 9; left: 50%; bottom: 14px; width: calc(min(100%, 430px) - 28px); transform: translateX(-50%); display: flex; align-items: center; justify-content: space-between; padding: 10px 11px 10px 17px; border: 1px solid rgba(255,255,255,.35); border-radius: 16px; background: rgba(25,51,36,.92); box-shadow: 0 10px 35px rgba(24,44,31,.24); backdrop-filter: blur(18px); color: white; }
-    .dock span { font-size: 13px; }
-    .dock a { padding: 10px 17px; border-radius: 10px; color: white; background: var(--orange); text-decoration: none; font-size: 13px; font-weight: 700; }
+    .footer { padding: 44px 20px calc(96px + env(safe-area-inset-bottom)); }
+    .footer-main { display: flex; align-items: center; gap: 14px; }
+    .footer-mark { display: grid; place-items: center; width: 46px; height: 46px; flex: 0 0 auto; border: 1px solid var(--green); color: var(--green); font-family: "Songti SC", serif; font-size: 22px; }
+    .footer-main p { margin: 0; color: var(--green); font-size: 8px; letter-spacing: .22em; }
+    .footer-main h2 { margin: 5px 0 0; color: #3b4f43; font-family: "Songti SC", serif; font-size: 17px; font-weight: 500; }
+    .footer-back { display: inline-block; margin-top: 26px; color: var(--green); font-size: 13px; font-weight: 700; text-decoration: none; border-bottom: 1px solid rgba(53,95,69,.4); padding-bottom: 6px; }
+    .footer-back span { color: var(--orange); }
+    .dock { position: fixed; z-index: 9; left: 50%; bottom: 18px; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border: 1px solid rgba(255,255,255,.26); border-radius: 999px; background: rgba(25,51,36,.92); box-shadow: 0 10px 35px rgba(24,44,31,.3); backdrop-filter: blur(18px); color: white; text-decoration: none; font-size: 14px; font-weight: 700; letter-spacing: .04em; }
+    .dock:hover { background: rgba(25,51,36,.98); }
     @media (min-width: 431px) { body { box-shadow: 0 0 70px rgba(0,0,0,.16); } }
   </style>
 </head>
@@ -180,7 +176,7 @@
         <div class="tags"><span>新皮橙香</span><span>海风韵</span><span>糯甜胶质</span><span>金丝纹</span></div>
         <p>新皮清鲜明亮，随时间陈化后，甜感更柔和，胶质感更显，纹理渐呈清晰的金丝感。</p>
       </div>
-      <div class="rank"><b>二线里的甜糯隐藏款</b><p>“南坦糯”可比肩部分核心产区陈皮。它的价值逻辑，来自岛田稀缺、狗腩老种与独特的甜糯陈化。</p></div>
+      <div class="rank"><b>产区里的甜糯隐藏款</b><p>“南坦糯”可比肩部分核心产区陈皮。它的价值逻辑，来自岛田稀缺、狗腩老种与独特的甜糯陈化。</p></div>
     </section>
 
     <section>
@@ -197,16 +193,35 @@
       </div>
     </section>
 
-    <section class="cta">
-      <div class="cta-kicker">TRACEABLE ORIGIN</div>
-      <h2>看得见的种植过程，尝得到的南坦风土</h2>
-      <p>农邻居合作果园接入种植过程数据管理，从花期、施肥到用药记录，让每一份来自南坦村的新会柑更透明。</p>
-      <div class="proof"><div><i>✓</i> 合作果园产地直连</div><div><i>✓</i> 种植记录透明可查</div><div><i>✓</i> 鲜果现摘，支持生态游体验</div></div>
-      <a class="button" href="#">预约南坦采摘体验</a>
-    </section>
-  </main>
+    </main>
 
-  <footer class="footer"><strong>南坦岛</strong>潭江水 · 百年葵林 · 甜糯陈皮</footer>
-  <div class="dock"><span>想了解南坦陈皮？</span><a href="#">立即咨询</a></div>
+  <footer class="footer">
+    <div class="footer-main">
+      <span class="footer-mark">糯</span>
+      <div>
+        <p>XINHUI ORIGIN ARCHIVE</p>
+        <h2>每一片陈皮，都有自己的故乡。</h2>
+      </div>
+    </div>
+    <a class="footer-back" href="/">返回产区总览 <span>↗</span></a>
+  </footer>
+  <a class="dock" href="/">← 返回产区地图</a>
+  <script>
+    (function () {
+      // 按照当前月份高亮对应的成熟阶段（8-9月青柑 / 10-11月二红 / 12月大红 / 次年1月冬后）
+      var items = document.querySelectorAll('.season-item')
+      if (!items.length) return
+      var m = new Date().getMonth() + 1
+      var activeIndex = -1
+      if (m >= 8 && m <= 9) activeIndex = 0
+      else if (m >= 10 && m <= 11) activeIndex = 1
+      else if (m === 12) activeIndex = 2
+      else if (m === 1) activeIndex = 3
+      if (activeIndex >= 0) {
+        for (var i = 0; i < items.length; i++) items[i].classList.remove('active')
+        items[activeIndex].classList.add('active')
+      }
+    })()
+  </script>
 </body>
 </html>

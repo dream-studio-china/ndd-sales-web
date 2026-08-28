@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { regionStories, storyBySlug } from '../../../src/regionStories'
+import SeasonScale from './SeasonScale'
 import styles from './story.module.css'
 
 export function generateStaticParams() {
@@ -26,20 +27,21 @@ export default async function RegionStoryPage({ params }) {
     '--soft': story.colors.soft,
     '--paper': story.colors.paper,
   }
+  const index = String(regionStories.findIndex(item => item.slug === slug) + 1).padStart(2, '0')
 
   return (
     <main className={`${styles.page} ${styles[story.variant]} ${styles[story.motif]}`} style={theme}>
       <header className={styles.hero}>
         <nav className={styles.nav}>
           <Link href="/" className={styles.back} aria-label="返回产区地图">← <span>产区地图</span></Link>
-          <span className={styles.navSeal}>新会陈皮 · 产区志</span>
-          <span className={styles.index}>{String(regionStories.findIndex(item => item.slug === slug) + 1).padStart(2, '0')} / {regionStories.length}</span>
+          <span className={styles.navSeal}>新会陈皮 · 产地志</span>
+          <span className={styles.index}>{index} / {regionStories.length}</span>
         </nav>
 
         <div className={styles.heroGrid}>
           <div className={`${styles.heroCopy} ${styles[`cover_${story.variant}`]}`}>
             <span className={styles.coverRule} aria-hidden="true" />
-            <span className={styles.coverCode}>ORIGIN / {String(regionStories.findIndex(item => item.slug === slug) + 1).padStart(2, '0')}</span>
+            <span className={styles.coverCode}>ORIGIN / {index}</span>
             <p className={styles.eyebrow}>{story.eyebrow}</p>
             <div className={styles.titleRow}>
               <span className={styles.mark} aria-hidden="true">{story.mark}</span>
@@ -47,7 +49,7 @@ export default async function RegionStoryPage({ params }) {
             </div>
             <h2>{story.headline}</h2>
             <p className={styles.summary}>{story.summary}</p>
-            <span className={styles.coverIndex}>{story.rank}</span>
+            {story.rank.startsWith('一线') && <span className={styles.coverIndex}>{story.rank}</span>}
           </div>
           <div className={styles.heroArt}>
             <Image
@@ -70,66 +72,88 @@ export default async function RegionStoryPage({ params }) {
         </div>
       </header>
 
-      <section className={styles.origin}>
-        <div className={styles.sectionLabel}><span>01</span> 来处 · ORIGIN</div>
-        <div className={styles.originGrid}>
-          <h2>一方地名，<br />一段水土记忆。</h2>
-          <p>{story.foundation}</p>
-        </div>
-      </section>
+      {/* 悬浮引言卡 */}
+      <aside className={styles.introCard}>
+        <span className={styles.introMark} aria-hidden="true">“</span>
+        <p>{story.summary}</p>
+        <small>广东 · 江门 · 新会 · {story.name}产区</small>
+      </aside>
 
-      <section className={styles.terroir}>
-        <div className={styles.sectionLabel}><span>02</span> 风土 · TERROIR</div>
-        <div className={styles.terroirHead}>
+      <div className={styles.body}>
+
+        {/* 01 历史溯源 */}
+        <section className={styles.section}>
+          <span className={styles.num}>01 / 历史溯源</span>
+          <h2>从一方地名，到百年柑乡</h2>
+          <p className={styles.lead}>{story.name}的名字、来路与种柑记忆，从这里说起。</p>
+          <div className={styles.textCard}>
+            <strong>{story.foundation}</strong>
+          </div>
+        </section>
+
+        {/* 02 种植土质 */}
+        <section className={styles.section}>
+          <span className={styles.num}>02 / 种植土质</span>
           <h2>{story.terroirTitle}</h2>
-          <p>{story.terroirIntro}</p>
-        </div>
-        <div className={styles.terrainCards}>
-          {story.terrain.map(([title, copy], index) => (
-            <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{copy}</p></article>
-          ))}
-        </div>
-      </section>
+          <p className={styles.lead}>一方水土养一方柑，读懂土质，就读懂了这里的陈皮。</p>
+          <div className={styles.textCard}>
+            <strong>{story.soilStory}</strong>
+          </div>
+        </section>
 
-      <section className={styles.fruit}>
-        <div className={styles.fruitVisual} aria-hidden="true">
-          <div className={styles.citrus}><i /><b>{story.mark}</b></div>
-          <span>本区风味标本</span>
-        </div>
-        <div className={styles.fruitCopy}>
-          <div className={styles.sectionLabel}><span>03</span> 柑香 · AROMA</div>
-          <p className={styles.rank}>{story.rank}</p>
+        {/* 03 新会柑特性 */}
+        <section className={styles.section}>
+          <span className={styles.num}>03 / 新会柑特性</span>
           <h2>{story.fruitName}</h2>
-          <p>{story.fruitDescription}</p>
-          <div className={styles.tasting}>{story.tasting.map(tag => <span key={tag}>{tag}</span>)}</div>
-        </div>
-      </section>
+          <p className={styles.lead}>从皮相到口感，新会柑的个性都写在果子里。</p>
+          <div className={styles.flavourCard}>
+            <span className={styles.flavourMark} aria-hidden="true">{story.mark}</span>
+            <h3>{story.fruitName}</h3>
+            <p>{story.fruitDescription}</p>
+            {story.rank.startsWith('一线') && <div className={styles.rankBadge}>{story.rank}</div>}
+          </div>
+        </section>
 
-      <section className={styles.value}>
-        <p>REGIONAL VALUE</p>
-        <h2>{story.valueTitle}</h2>
-        <div><span>{story.mark}</span><p>{story.valueCopy}</p></div>
-      </section>
+        {/* 04 人文建筑 */}
+        <section className={styles.section}>
+          <span className={styles.num}>04 / 人文建筑</span>
+          <h2>循着建筑与乡愁，走进{story.name}</h2>
+          <p className={styles.lead}>一条从人文建筑到风土柑园的行读路线。</p>
+          <div className={styles.featureList}>
+            {story.journey.map(([place, copy], index) => (
+              <div className={styles.feature} key={place}>
+                <span className={styles.featureIcon}>{String(index + 1).padStart(2, '0')}</span>
+                <div><h3>{place}</h3><p>{copy}</p></div>
+              </div>
+            ))}
+          </div>
+        </section>
 
-      <section className={styles.journey}>
-        <div className={styles.sectionLabel}><span>04</span> 入境 · JOURNEY</div>
-        <div className={styles.journeyTitle}><h2>沿着风土，走进{story.name}</h2><p>一条从人文到柑园的产区路线</p></div>
-        <div className={styles.stops}>
-          {story.journey.map(([place, copy], index) => (
-            <article key={place}><span>{String(index + 1).padStart(2, '0')}</span><h3>{place}</h3><p>{copy}</p></article>
-          ))}
-        </div>
-      </section>
+        {/* 05 时令体验 */}
+        <section className={styles.section}>
+          <span className={styles.num}>05 / 时令体验</span>
+          <h2>从青柑，到冬后柑</h2>
+          <p className={styles.lead}>每年 8 月至次年 1 月是新会柑的采摘季，每个阶段都有不同的香气与用途。</p>
+          <SeasonScale />
+        </section>
 
-      <section className={styles.season}>
-        <p>一枚柑的成熟刻度</p>
-        <div className={styles.timeline}><span>8月 青柑</span><i /><span>10月 二红</span><i /><span>12月 大红</span><i /><span>三年 陈香初成</span></div>
-      </section>
+        {/* 区域价值 CTA */}
+        <section className={styles.cta}>
+          <span className={styles.ctaKicker}>REGIONAL VALUE</span>
+          <h2>{story.valueTitle}</h2>
+          <p>{story.valueCopy}</p>
+          <Link href="/" className={styles.ctaButton}>返回产区总览 <span>↗</span></Link>
+        </section>
+
+      </div>
 
       <footer className={styles.footer}>
         <div><span className={styles.footerMark}>{story.mark}</span><div><p>XINHUI ORIGIN ARCHIVE</p><h2>每一片陈皮，都有自己的故乡。</h2></div></div>
         <Link href="/">返回产区总览 <span>↗</span></Link>
       </footer>
+
+      {/* 底部悬浮返回 */}
+      <Link href="/" className={styles.dock}>← 返回产区地图</Link>
     </main>
   )
 }

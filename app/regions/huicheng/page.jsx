@@ -1,19 +1,13 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import ChenpiIntro from './ChenpiIntro'
+import RipenessStages from './RipenessStages'
 import styles from './page.module.css'
 
 export const metadata = {
   title: '新会陈皮介绍 · 从青柑到冬后柑',
   description: '认识新会茶枝柑的五个采摘阶段、传统食养用途与四季使用方式。',
 }
-
-const stages = [
-  { no: '01', month: '08.01—09.01', name: '小青柑', color: '#1f5540', feature: '青绿 · 油室密集 · 香气高锐', role: '传统上偏重疏肝理气、消积化滞。', scene: '适合制成小青柑普洱茶，风味清润、解腻。' },
-  { no: '02', month: '09.01—10.01', name: '大青柑', color: '#527045', feature: '青转黄绿 · 皮稍厚 · 挥发油丰富', role: '传统上用于理气调中、燥湿化痰。', scene: '晒干后可搭配白茶、普洱冲泡，亦用于配伍。' },
-  { no: '03', month: '10.01—11.01', name: '二红柑', color: '#b57732', feature: '黄绿带红 · 皮渐厚 · 甜度增加', role: '传统上用于理气健脾、调和肝脾。', scene: '日常煲汤、煮水、泡茶皆宜，气质温和。' },
-  { no: '04', month: '11.01—12.01', name: '大红柑', color: '#b74729', feature: '全红 · 皮厚 · 油室饱满', role: '传统上偏重健脾和胃、温中化痰。', scene: '陈化后称大红皮，适合煮水、炖汤和煮粥。' },
-  { no: '05', month: '12.01—01.01', name: '冬后柑', color: '#742f28', feature: '深红至紫红 · 皮厚柔软 · 果香浓', role: '传统食养取其温和、温润的特点。', scene: '适合冬季炖汤、煮茶或泡酒，风味最为醇甜。' },
-]
 
 const seasons = [
   { season: '春夏', use: '小青 · 大青', copy: '香气清锐，适合清爽茶饮与餐后解腻。' },
@@ -40,6 +34,8 @@ export default function HuichengChenpiPage() {
         </div>
       </header>
 
+      <ChenpiIntro />
+
       <section className={styles.intro}>
         <div className={styles.sectionNo}>00 · INTRODUCTION</div>
         <h2>皮从果来，<br />香由时间完成。</h2>
@@ -53,15 +49,7 @@ export default function HuichengChenpiPage() {
       <section className={styles.ripeness}>
         <div className={styles.sectionNo}>01 · FIVE RIPENESS STAGES</div>
         <div className={styles.ripenessTitle}><h2>从青到红<br />五时五味</h2><p>08月<br />—<br />01月</p></div>
-        <div className={styles.stageList}>
-          {stages.map(stage => (
-            <article key={stage.name} style={{ '--stage': stage.color }}>
-              <div className={styles.stageHead}><span>{stage.no}</span><time>{stage.month}</time><i /></div>
-              <div className={styles.stageName}><h3>{stage.name}</h3><strong>{stage.feature}</strong></div>
-              <p>{stage.role}</p><p>{stage.scene}</p>
-            </article>
-          ))}
-        </div>
+        <RipenessStages />
       </section>
 
       <section className={styles.aging}>
@@ -82,6 +70,7 @@ export default function HuichengChenpiPage() {
       </section>
 
       <footer className={styles.footer}><div><span>陈</span><p>农邻居 · 让好产地被看见</p></div><Link href="/">返回产区地图 ↗</Link></footer>
+      <Link href="/" className={styles.floatingBack}>← 返回产区地图</Link>
     </main>
   )
 }
