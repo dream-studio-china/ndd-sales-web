@@ -3,28 +3,25 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 const regions = [
-  // 主要片区的位置按参考图的原始轮廓重新排列。
-  { id: 'siqian', name: '司前片区', short: '司前', x: 1, y: 25, w: 24, h: 20, color: '#208d63', icon: '🥥', sales: 82, target: 92, reps: 12, trend: '+12.4%', path: 'M7 12 25 3l21 7 4 25-12 29-27-7L2 38Z' },
-  { id: 'daze', name: '大泽片区', short: '大泽', x: 17, y: 16, w: 25, h: 18, color: '#70aa43', icon: '🍊', sales: 64, target: 80, reps: 9, trend: '+8.2%', path: 'M4 24 11 7l26-5 13 19-9 28-29-2L1 36Z' },
-  { id: 'huicheng', name: '会城片区', short: '会城', x: 38, y: 5, w: 37, h: 30, color: '#18a46e', icon: '🏮', sales: 126, target: 140, reps: 18, trend: '+18.6%', path: 'M5 25 18 3l25 2 8 14-2 34-16 19-23-7L1 43Z' },
-  { id: 'sanjiang', name: '三江片区', short: '三江', x: 61, y: 36, w: 24, h: 23, color: '#168f6b', icon: '🐉', sales: 97, target: 110, reps: 13, trend: '+15.1%', path: 'M9 4 34 1l15 21-4 30-27 10L2 43 1 18Z' },
-  { id: 'daao', name: '大鳌片区', short: '大鳌', x: 82, y: 27, w: 17, h: 20, color: '#38a65d', icon: '🌽', sales: 55, target: 72, reps: 7, trend: '+5.7%', path: 'M14 2 39 10l8 25-15 31L5 55 1 18Z' },
-  { id: 'luokeng', name: '罗坑片区', short: '罗坑', x: 8, y: 43, w: 28, h: 20, color: '#399e5e', icon: '🌸', sales: 71, target: 76, reps: 10, trend: '+21.3%', path: 'M4 7 34 1l15 23-7 27-29 8L1 39Z' },
-  { id: 'shuangshui', name: '双水片区', short: '双水', x: 29, y: 57, w: 27, h: 21, color: '#299765', icon: '🌾', sales: 89, target: 100, reps: 11, trend: '+11.8%', path: 'M7 3 40 5l10 27-19 29L5 53 1 21Z' },
-  { id: 'yamen', name: '崖门片区', short: '崖门', x: 37, y: 75, w: 31, h: 23, color: '#16885f', icon: '🗼', sales: 88, target: 105, reps: 10, trend: '+10.8%', path: 'M8 2 38 4l12 22-4 29-19 22L7 63 1 26Z' },
-  { id: 'gujing', name: '古井片区', short: '古井', x: 56, y: 61, w: 24, h: 25, color: '#188d63', icon: '🏯', sales: 104, target: 118, reps: 14, trend: '+16.9%', path: 'M7 3 38 4l11 25-6 31-24 14L3 57 1 23Z' },
-  { id: 'shadui', name: '沙堆片区', short: '沙堆', x: 73, y: 55, w: 23, h: 25, color: '#23965d', icon: '🦐', sales: 68, target: 82, reps: 8, trend: '+7.9%', path: 'M10 2 41 9l8 25-10 30-26 8L2 48 1 20Z' },
-  { id: 'muzhou', name: '睦洲片区', short: '睦洲', x: 82, y: 41, w: 17, h: 20, color: '#2c995a', icon: '🍠', sales: 76, target: 90, reps: 8, trend: '+9.6%', path: 'M12 2 41 9l8 27-13 31-25-9L1 26Z' },
-
-  // 会城内部的八个产区也作为独立热点显示和点击。
-  { id: 'dongjia', kind: 'sub', name: '东甲产区', short: '东甲', x: 60, y: 8, w: 14, h: 10, color: '#4dba79', icon: '✦', sales: 18, target: 22, reps: 3, trend: '+13.2%', path: 'M5 12 23 2l23 8 4 28-18 28L5 53 1 26Z' },
-  { id: 'xijia', kind: 'sub', name: '西甲产区', short: '西甲', x: 64, y: 18, w: 13, h: 10, color: '#42ad71', icon: '✦', sales: 16, target: 20, reps: 3, trend: '+8.8%', path: 'M7 5 38 3l12 22-8 36-29 7L1 37Z' },
-  { id: 'meijiang', kind: 'sub', name: '梅江产区', short: '梅江', x: 36, y: 20, w: 15, h: 10, color: '#4ab678', icon: '✦', sales: 15, target: 18, reps: 2, trend: '+15.6%', path: 'M5 7 34 1l15 23-8 37-28 7L1 36Z' },
-  { id: 'qibao', kind: 'sub', name: '七堡产区', short: '七堡', x: 27, y: 28, w: 14, h: 11, color: '#3da86d', icon: '✦', sales: 14, target: 17, reps: 2, trend: '+6.4%', path: 'M4 9 35 2l15 24-9 35-28 6L1 35Z' },
-  { id: 'tianlu', kind: 'sub', name: '天禄产区', short: '天禄', x: 46, y: 27, w: 14, h: 10, color: '#48b274', icon: '✦', sales: 17, target: 21, reps: 3, trend: '+12.1%', path: 'M8 2 39 6l11 24-9 32-28 5L1 34Z' },
-  { id: 'tianma', kind: 'sub', name: '天马产区', short: '天马', x: 58, y: 30, w: 14, h: 10, color: '#36a26a', icon: '✦', sales: 19, target: 23, reps: 3, trend: '+19.3%', path: 'M5 8 36 2l14 25-9 34-29 5L1 35Z' },
-  { id: 'nantan', kind: 'sub', name: '南坦产区', short: '南坦', x: 34, y: 36, w: 15, h: 10, color: '#319d66', icon: '✦', sales: 13, target: 16, reps: 2, trend: '+9.7%', path: 'M4 7 35 1l15 25-8 34-29 7L1 36Z' },
-  { id: 'chakeng', kind: 'sub', name: '茶坑产区', short: '茶坑', x: 46, y: 40, w: 14, h: 10, color: '#279562', icon: '✦', sales: 16, target: 19, reps: 2, trend: '+11.5%', path: 'M6 3 38 5l12 23-9 34-29 5L1 34Z' },
+  { id: 'siqian', name: '司前片区', short: '司前', x: 1, y: 25, w: 24, h: 20, color: '#208d63', icon: '🥥', sales: 82, target: 92, reps: 12, trend: '+12.4%', farms: 32, heat: 86, path: 'M7 12 25 3l21 7 4 25-12 29-27-7L2 38Z' },
+  { id: 'daze', name: '大泽片区', short: '大泽', x: 17, y: 16, w: 25, h: 18, color: '#70aa43', icon: '🍊', sales: 64, target: 80, reps: 9, trend: '+8.2%', farms: 28, heat: 72, path: 'M4 24 11 7l26-5 13 19-9 28-29-2L1 36Z' },
+  { id: 'huicheng', name: '会城片区', short: '会城', x: 38, y: 5, w: 37, h: 30, color: '#18a46e', icon: '🏮', sales: 126, target: 140, reps: 18, trend: '+18.6%', farms: 58, heat: 93, path: 'M5 25 18 3l25 2 8 14-2 34-16 19-23-7L1 43Z' },
+  { id: 'sanjiang', name: '三江片区', short: '三江', x: 61, y: 36, w: 24, h: 23, color: '#168f6b', icon: '🐉', sales: 97, target: 110, reps: 13, trend: '+15.1%', farms: 36, heat: 81, path: 'M9 4 34 1l15 21-4 30-27 10L2 43 1 18Z' },
+  { id: 'daao', name: '大鳌片区', short: '大鳌', x: 82, y: 27, w: 17, h: 20, color: '#38a65d', icon: '🌽', sales: 55, target: 72, reps: 7, trend: '+5.7%', farms: 21, heat: 68, path: 'M14 2 39 10l8 25-15 31L5 55 1 18Z' },
+  { id: 'luokeng', name: '罗坑片区', short: '罗坑', x: 8, y: 43, w: 28, h: 20, color: '#399e5e', icon: '🌸', sales: 71, target: 76, reps: 10, trend: '+21.3%', farms: 26, heat: 88, path: 'M4 7 34 1l15 23-7 27-29 8L1 39Z' },
+  { id: 'shuangshui', name: '双水片区', short: '双水', x: 29, y: 57, w: 27, h: 21, color: '#299765', icon: '🌾', sales: 89, target: 100, reps: 11, trend: '+11.8%', farms: 34, heat: 84, path: 'M7 3 40 5l10 27-19 29L5 53 1 21Z' },
+  { id: 'yamen', name: '崖门片区', short: '崖门', x: 37, y: 75, w: 31, h: 23, color: '#16885f', icon: '🗼', sales: 88, target: 105, reps: 10, trend: '+10.8%', farms: 31, heat: 79, path: 'M8 2 38 4l12 22-4 29-19 22L7 63 1 26Z' },
+  { id: 'gujing', name: '古井片区', short: '古井', x: 56, y: 61, w: 24, h: 25, color: '#188d63', icon: '🏯', sales: 104, target: 118, reps: 14, trend: '+16.9%', farms: 42, heat: 90, path: 'M7 3 38 4l11 25-6 31-24 14L3 57 1 23Z' },
+  { id: 'shadui', name: '沙堆片区', short: '沙堆', x: 73, y: 55, w: 23, h: 25, color: '#23965d', icon: '🦐', sales: 68, target: 82, reps: 8, trend: '+7.9%', farms: 29, heat: 75, path: 'M10 2 41 9l8 25-10 30-26 8L2 48 1 20Z' },
+  { id: 'muzhou', name: '睦洲片区', short: '睦洲', x: 82, y: 41, w: 17, h: 20, color: '#2c995a', icon: '🍠', sales: 76, target: 90, reps: 8, trend: '+9.6%', farms: 33, heat: 82, path: 'M12 2 41 9l8 27-13 31-25-9L1 26Z' },
+  { id: 'dongjia', kind: 'sub', name: '东甲产区', short: '东甲', x: 60, y: 8, w: 14, h: 10, color: '#4dba79', icon: '✦', sales: 18, target: 22, reps: 3, trend: '+13.2%', farms: 9, heat: 77, path: 'M5 12 23 2l23 8 4 28-18 28L5 53 1 26Z' },
+  { id: 'xijia', kind: 'sub', name: '西甲产区', short: '西甲', x: 64, y: 18, w: 13, h: 10, color: '#42ad71', icon: '✦', sales: 16, target: 20, reps: 3, trend: '+8.8%', farms: 8, heat: 71, path: 'M7 5 38 3l12 22-8 36-29 7L1 37Z' },
+  { id: 'meijiang', kind: 'sub', name: '梅江产区', short: '梅江', x: 36, y: 20, w: 15, h: 10, color: '#4ab678', icon: '✦', sales: 15, target: 18, reps: 2, trend: '+15.6%', farms: 7, heat: 83, path: 'M5 7 34 1l15 23-8 37-28 7L1 36Z' },
+  { id: 'qibao', kind: 'sub', name: '七堡产区', short: '七堡', x: 27, y: 28, w: 14, h: 11, color: '#3da86d', icon: '✦', sales: 14, target: 17, reps: 2, trend: '+6.4%', farms: 6, heat: 69, path: 'M4 9 35 2l15 24-9 35-28 6L1 35Z' },
+  { id: 'tianlu', kind: 'sub', name: '天禄产区', short: '天禄', x: 46, y: 27, w: 14, h: 10, color: '#48b274', icon: '✦', sales: 17, target: 21, reps: 3, trend: '+12.1%', farms: 8, heat: 80, path: 'M8 2 39 6l11 24-9 32-28 5L1 34Z' },
+  { id: 'tianma', kind: 'sub', name: '天马产区', short: '天马', x: 58, y: 30, w: 14, h: 10, color: '#36a26a', icon: '✦', sales: 19, target: 23, reps: 3, trend: '+19.3%', farms: 10, heat: 89, path: 'M5 8 36 2l14 25-9 34-29 5L1 35Z' },
+  { id: 'nantan', kind: 'sub', name: '南坦产区', short: '南坦', x: 34, y: 36, w: 15, h: 10, color: '#319d66', icon: '✦', sales: 13, target: 16, reps: 2, trend: '+9.7%', farms: 7, heat: 74, path: 'M4 7 35 1l15 25-8 34-29 7L1 36Z' },
+  { id: 'chakeng', kind: 'sub', name: '茶坑产区', short: '茶坑', x: 46, y: 40, w: 14, h: 10, color: '#279562', icon: '✦', sales: 16, target: 19, reps: 2, trend: '+11.5%', farms: 8, heat: 78, path: 'M6 3 38 5l12 23-9 34-29 5L1 34Z' },
 ]
 
 // 所有区域使用同一套坐标系和共享顶点，组合后是一张无空隙的完整地图。
@@ -77,7 +74,7 @@ function MapRegion({ region, selected, onClick }) {
       className={`map-region ${region.kind === 'sub' ? 'is-subregion' : ''} ${selected ? 'is-selected' : ''}`}
       style={{ '--x': `${geometry.lx}%`, '--y': `${geometry.ly / 1.5}%`, '--region': region.color }}
       onClick={() => onClick(region)}
-      aria-label={`进入${region.name}，当前完成${region.sales}万`}
+      aria-label={`进入${region.name}，当前产量${(region.sales * 1000).toLocaleString()}斤`}
     >
       <span className="region-landmark">{region.icon}</span>
       <span className="region-label">
@@ -124,7 +121,7 @@ function TransparentMap() {
   return <canvas ref={canvasRef} className="map-art" aria-hidden="true" />
 }
 
-function Overview() {
+function Overview({ onEnterRegion }) {
   const [selected, setSelected] = useState(null)
   const [view, setView] = useState({ scale: 1.32, x: 0, y: 0 })
   const selectedGeometry = selected ? mapGeometry[selected.id] : null
@@ -317,14 +314,16 @@ function Overview() {
             <div className="dock-grip" />
             <button className="dock-close" aria-label="关闭区域信息" onClick={() => setSelected(null)}><Icon name="close" size={17} /></button>
             <div className="dock-copy">
-              <div><small>已选择战区</small><h3>{selected.name}</h3></div>
+              <div><small>已选择产区</small><h3>{selected.name}</h3></div>
               <span className="trend">{selected.trend}</span>
             </div>
             <div className="dock-stats">
-              <div><span>本月销售</span><strong>{selected.sales}<small>万</small></strong></div>
-              <div><span>目标进度</span><strong>{Math.round(selected.sales / selected.target * 100)}<small>%</small></strong></div>
-              <div><span>销售人员</span><strong>{selected.reps}<small>人</small></strong></div>
+              <div><span>本月产量</span><strong>{(selected.sales * 1000).toLocaleString()}<small>斤</small></strong></div>
+              <div><span>热度</span><strong>{selected.heat}<small>°</small></strong></div>
+              <div><span>农场数</span><strong>{selected.farms}<small>家</small></strong></div>
+              <div><span>达标率</span><strong>{Math.round(selected.sales / selected.target * 100)}<small>%</small></strong></div>
             </div>
+            <button className="dock-enter" onClick={() => onEnterRegion?.(selected)}>进入产区 <Icon name="arrow" size={14} /></button>
         </section>
       )}
     </main>
@@ -343,7 +342,7 @@ function RegionDetail({ region, onBack }) {
       <div className="detail-glow" />
       <header className="detail-header">
         <button className="icon-button" onClick={onBack} aria-label="返回地图"><Icon name="back" /></button>
-        <span>战区详情</span>
+        <span>产区详情</span>
         <button className="icon-button" aria-label="搜索"><Icon name="search" /></button>
       </header>
       <section className="region-hero">
@@ -351,14 +350,14 @@ function RegionDetail({ region, onBack }) {
         <div className="hero-landmark">{region.icon}</div>
         <p><Icon name="pin" size={15} /> 江门 · 新会</p>
         <h1>{region.name}</h1>
-        <span className="hero-pill">本月增长 {region.trend}</span>
+        <span className="hero-pill">本月增长 {region.trend} · 热度 {region.heat}° · {region.farms} 家农场</span>
       </section>
       <section className="score-card">
         <div className="score-ring" style={{ '--score': `${completion * 3.6}deg` }}><span><b>{completion}</b>%</span></div>
-        <div><small>本月目标进度</small><h2>{region.sales} <span>/ {region.target} 万</span></h2><p>保持节奏，预计提前 3 天达成</p></div>
+        <div><small>本月产量</small><h2>{(region.sales * 1000).toLocaleString()} <span>/ {(region.target * 1000).toLocaleString()} 斤</span></h2><p>热度 {region.heat}° · {region.farms} 家农场在产</p></div>
       </section>
       <section className="detail-content">
-        <div className="section-title"><div><small>MISSION BOARD</small><h2>今日战区任务</h2></div><button>全部任务</button></div>
+        <div className="section-title"><div><small>MISSION BOARD</small><h2>今日产区任务</h2></div><button>全部任务</button></div>
         <div className="task-list">
           {tasks.map((task, index) => (
             <button className="task-card" key={task.title}>
@@ -370,15 +369,26 @@ function RegionDetail({ region, onBack }) {
         </div>
         <div className="team-card">
           <span className="team-icon"><Icon name="people" /></span>
-          <div><small>战区小队</small><h3>{region.reps} 名销售正在作战</h3></div>
+          <div><small>产区小队</small><h3>{region.reps} 名成员 · {region.farms} 家农场</h3></div>
           <button><Icon name="arrow" /></button>
         </div>
       </section>
-      <button className="floating-action"><span>+</span> 快速录入销售</button>
+      <button className="floating-action"><span>+</span> 快速录入产量</button>
     </main>
   )
 }
 
 export default function App() {
-  return <Overview />
+  const [activeRegion, setActiveRegion] = useState(null)
+  const enterRegion = (region) => {
+    if (region.id === 'shuangshui' || region.id === 'yamen') {
+      window.location.assign(`/regions/${region.id}`)
+      return
+    }
+    setActiveRegion(region)
+  }
+  if (activeRegion) {
+    return <RegionDetail region={activeRegion} onBack={() => setActiveRegion(null)} />
+  }
+  return <Overview onEnterRegion={enterRegion} />
 }
