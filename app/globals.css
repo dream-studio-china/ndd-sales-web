@@ -173,6 +173,7 @@ button { font: inherit; color: inherit; border: 0; cursor: pointer; }
 .dock-stats small { margin-left: 2px; color: #8aaba3; font: 500 9px 'Noto Sans SC'; }
 .dock-enter { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; height: 38px; margin-top: 10px; border-radius: 12px; color: #132318; font-size: 13px; font-weight: 900; background: linear-gradient(100deg, #82de53, var(--lime)); box-shadow: 0 8px 20px rgba(137,211,68,.18); }
 .dock-enter:active { transform: scale(.98); }
+.dock-unavailable { display: grid; place-items: center; width: 100%; height: 38px; margin-top: 10px; border: 1px solid rgba(170,205,190,.14); border-radius: 12px; color: #729087; background: rgba(255,255,255,.025); font-size: 11px; font-weight: 700; letter-spacing: .8px; }
 .enter-button { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 40px; border-radius: 13px; color: #132318; font-size: 13px; font-weight: 900; background: linear-gradient(100deg, #82de53, var(--lime)); box-shadow: 0 8px 20px rgba(137,211,68,.18); }
 
 .bottom-nav { position: fixed; z-index: 21; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(4,1fr); height: calc(66px + env(safe-area-inset-bottom)); padding: 6px 12px env(safe-area-inset-bottom); background: rgba(7,24,28,.96); border-top: 1px solid rgba(255,255,255,.07); backdrop-filter: blur(20px); }

@@ -14,6 +14,7 @@ const regions = [
   { id: 'gujing', name: '古井片区', short: '古井', x: 56, y: 61, w: 24, h: 25, color: '#188d63', icon: '🏯', sales: 104, target: 118, reps: 14, trend: '+16.9%', farms: 42, heat: 90, path: 'M7 3 38 4l11 25-6 31-24 14L3 57 1 23Z' },
   { id: 'shadui', name: '沙堆片区', short: '沙堆', x: 73, y: 55, w: 23, h: 25, color: '#23965d', icon: '🦐', sales: 68, target: 82, reps: 8, trend: '+7.9%', farms: 29, heat: 75, path: 'M10 2 41 9l8 25-10 30-26 8L2 48 1 20Z' },
   { id: 'muzhou', name: '睦洲片区', short: '睦洲', x: 82, y: 41, w: 17, h: 20, color: '#2c995a', icon: '🍠', sales: 76, target: 90, reps: 8, trend: '+9.6%', farms: 33, heat: 82, path: 'M12 2 41 9l8 27-13 31-25-9L1 26Z' },
+  { id: 'dadong', kind: 'sub', name: '大洞产区', short: '大洞', x: 53, y: 8, w: 12, h: 9, color: '#45b47a', icon: '✦', sales: 12, target: 15, reps: 2, trend: '+10.2%', farms: 5, heat: 73, path: 'M4 9 30 2l18 17-8 30-27 7L1 31Z' },
   { id: 'dongjia', kind: 'sub', name: '东甲产区', short: '东甲', x: 60, y: 8, w: 14, h: 10, color: '#4dba79', icon: '✦', sales: 18, target: 22, reps: 3, trend: '+13.2%', farms: 9, heat: 77, path: 'M5 12 23 2l23 8 4 28-18 28L5 53 1 26Z' },
   { id: 'xijia', kind: 'sub', name: '西甲产区', short: '西甲', x: 64, y: 18, w: 13, h: 10, color: '#42ad71', icon: '✦', sales: 16, target: 20, reps: 3, trend: '+8.8%', farms: 8, heat: 71, path: 'M7 5 38 3l12 22-8 36-29 7L1 37Z' },
   { id: 'meijiang', kind: 'sub', name: '梅江产区', short: '梅江', x: 36, y: 20, w: 15, h: 10, color: '#4ab678', icon: '✦', sales: 15, target: 18, reps: 2, trend: '+15.6%', farms: 7, heat: 83, path: 'M5 7 34 1l15 23-8 37-28 7L1 36Z' },
@@ -24,9 +25,15 @@ const regions = [
   { id: 'chakeng', kind: 'sub', name: '茶坑产区', short: '茶坑', x: 46, y: 40, w: 14, h: 10, color: '#279562', icon: '✦', sales: 16, target: 19, reps: 2, trend: '+11.5%', farms: 8, heat: 78, path: 'M6 3 38 5l12 23-9 34-29 5L1 34Z' },
 ]
 
+const documentedRegionIds = new Set([
+  'huicheng', 'siqian', 'daze', 'sanjiang', 'shuangshui', 'yamen', 'gujing', 'shadui', 'muzhou',
+  'dadong', 'dongjia', 'meijiang', 'qibao', 'tianlu', 'tianma', 'nantan', 'chakeng',
+])
+
 // 所有区域使用同一套坐标系和共享顶点，组合后是一张无空隙的完整地图。
 const mapGeometry = {
   huicheng: { d: 'M38 16 45 3 65 4 61 20 55 24 42 32Z', lx: 50, ly: 24 },
+  dadong: { d: 'M52 6 61 5 64 11 59 16 51 14Z', lx: 58, ly: 10 },
   dongjia: { d: 'M65 4 75 15 70 28 61 20Z', lx: 68, ly: 12 },
   daze: { d: 'M20 20 38 16 42 32 34 43 18 38Z', lx: 29, ly: 28 },
   meijiang: { d: 'M42 32 55 24 50 37 43 47 34 43Z', lx: 44, ly: 36 },
@@ -323,7 +330,9 @@ function Overview({ onEnterRegion }) {
               <div><span>农场数</span><strong>{selected.farms}<small>家</small></strong></div>
               <div><span>达标率</span><strong>{Math.round(selected.sales / selected.target * 100)}<small>%</small></strong></div>
             </div>
-            <button className="dock-enter" onClick={() => onEnterRegion?.(selected)}>进入产区 <Icon name="arrow" size={14} /></button>
+            {documentedRegionIds.has(selected.id)
+              ? <button className="dock-enter" onClick={() => onEnterRegion?.(selected)}>进入产区 <Icon name="arrow" size={14} /></button>
+              : <div className="dock-unavailable">暂无独立产区介绍</div>}
         </section>
       )}
     </main>
@@ -381,7 +390,7 @@ function RegionDetail({ region, onBack }) {
 export default function App() {
   const [activeRegion, setActiveRegion] = useState(null)
   const enterRegion = (region) => {
-    if (region.id === 'shuangshui' || region.id === 'yamen' || region.id === 'nantan') {
+    if (documentedRegionIds.has(region.id)) {
       window.location.assign(`/regions/${region.id}`)
       return
     }
