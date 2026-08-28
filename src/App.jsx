@@ -381,7 +381,7 @@ function RegionDetail({ region, onBack }) {
 export default function App() {
   const [activeRegion, setActiveRegion] = useState(null)
   const enterRegion = (region) => {
-    if (region.id === 'shuangshui' || region.id === 'yamen') {
+    if (region.id === 'shuangshui' || region.id === 'yamen' || region.id === 'nantan') {
       window.location.assign(`/regions/${region.id}`)
       return
     }
