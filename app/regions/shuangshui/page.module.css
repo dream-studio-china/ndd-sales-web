@@ -1,0 +1,174 @@
+.page {
+  --ink: #15352b;
+  --deep: #082c25;
+  --forest: #0d4d3c;
+  --leaf: #3f7453;
+  --cream: #f3eddf;
+  --paper: #faf7ef;
+  --orange: #e87231;
+  width: 100%;
+  max-width: 680px;
+  min-height: 100vh;
+  margin: 0 auto;
+  overflow: hidden;
+  color: var(--ink);
+  background: var(--paper);
+  box-shadow: 0 0 80px rgba(0, 0, 0, .45);
+}
+
+.hero {
+  position: relative;
+  height: min(92svh, 850px);
+  min-height: 650px;
+  overflow: hidden;
+  color: white;
+  background: #183e32;
+}
+
+.heroImage { object-fit: cover; object-position: 53% center; }
+.heroShade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(6, 25, 22, .58) 0, rgba(4, 29, 23, .04) 25%, rgba(6, 33, 26, .18) 48%, rgba(4, 26, 22, .9) 100%),
+    linear-gradient(90deg, rgba(5, 31, 25, .28), transparent 70%);
+}
+
+.topbar {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 42px 1fr 42px;
+  align-items: center;
+  padding: max(18px, env(safe-area-inset-top)) 18px 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.roundButton {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, .28);
+  border-radius: 50%;
+  color: white;
+  background: rgba(7, 33, 27, .24);
+  backdrop-filter: blur(10px);
+}
+
+.edition { font: 600 9px/1.2 ui-monospace, SFMono-Regular, monospace; letter-spacing: 1px; opacity: .7; }
+.heroCopy { position: absolute; z-index: 2; left: 24px; right: 24px; bottom: 82px; }
+.location { display: flex; align-items: center; gap: 5px; margin-bottom: 18px; color: rgba(255,255,255,.76); font-size: 11px; }
+.kicker { margin: 0 0 4px; color: #d9e7a6; font: 600 10px/1.4 ui-monospace, SFMono-Regular, monospace; letter-spacing: 2.5px; }
+.hero h1 { margin: 0; font-family: 'Songti SC', 'STSong', serif; font-size: clamp(58px, 18vw, 92px); font-weight: 800; line-height: 1; letter-spacing: -5px; text-shadow: 0 10px 40px rgba(0,0,0,.35); }
+.hero h1 span { margin-left: 8px; color: #e1ecba; font-size: .36em; letter-spacing: 5px; vertical-align: .35em; }
+.heroLead { margin: 18px 0 0; padding-left: 13px; border-left: 2px solid #e0edaa; color: rgba(255,255,255,.88); font-family: 'Songti SC', 'STSong', serif; font-size: 16px; line-height: 1.75; letter-spacing: 2px; }
+.scrollCue { position: absolute; z-index: 2; right: 21px; bottom: 26px; display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,.55); font-size: 9px; letter-spacing: 2px; writing-mode: vertical-rl; }
+.scrollCue span { width: 1px; height: 36px; background: linear-gradient(white, transparent); }
+
+.intro, .terroir, .season, .journey { padding: 70px 24px; }
+.intro { position: relative; background: var(--paper); }
+.intro::after { content: '雙水'; position: absolute; top: 32px; right: -12px; color: rgba(29, 66, 51, .035); font-family: 'Songti SC', serif; font-size: 118px; font-weight: 900; writing-mode: vertical-rl; pointer-events: none; }
+.sectionMark { color: #7a917b; font: 700 10px/1.5 ui-monospace, SFMono-Regular, monospace; letter-spacing: 2px; }
+.leadText { position: relative; z-index: 1; max-width: 540px; margin: 23px 0 17px; font-family: 'Songti SC', 'STSong', serif; font-size: clamp(24px, 7vw, 36px); font-weight: 700; line-height: 1.55; letter-spacing: .5px; }
+.bodyText { position: relative; z-index: 1; margin: 0; color: #63766b; font-size: 14px; line-height: 1.9; }
+.factGrid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 38px; border-top: 1px solid #d9d4c7; border-bottom: 1px solid #d9d4c7; }
+.factGrid div { padding: 20px 7px 18px; text-align: center; border-right: 1px solid #d9d4c7; }
+.factGrid div:last-child { border: 0; }
+.factGrid strong { display: block; color: var(--forest); font: 700 clamp(21px, 6.5vw, 31px)/1.1 'Songti SC', serif; }
+.factGrid span { display: block; margin-top: 7px; color: #7e8d84; font-size: 9px; letter-spacing: 1px; }
+
+.terroir { color: white; background: var(--deep); }
+.sectionHeading { display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+.sectionHeading span { color: #9bbb8f; font: 700 10px/1.5 ui-monospace, monospace; letter-spacing: 2px; }
+.sectionHeading h2, .journey h2 { margin: 8px 0 0; font-family: 'Songti SC', 'STSong', serif; font-size: clamp(34px, 10vw, 50px); line-height: 1.22; letter-spacing: 1px; }
+.sectionHeading > p { margin: 0 0 5px; color: #86a297; font-size: 10px; line-height: 1.7; text-align: right; }
+.terrainCard { position: relative; display: grid; grid-template-columns: 1fr 1fr; min-height: 410px; margin-top: 36px; overflow: hidden; border: 1px solid rgba(211, 230, 197, .15); border-radius: 4px 80px 4px 4px; background: linear-gradient(145deg, #31523a 0%, #183e31 52%, #0f584b 100%); }
+.terrainHalf { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: end; padding: 24px 18px 80px; border-right: 1px solid rgba(255,255,255,.12); }
+.terrainHalf.plain { background: linear-gradient(180deg, transparent, rgba(43, 118, 98, .32)); border: 0; }
+.terrainIcon { display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: auto; border: 1px solid rgba(225, 238, 184, .25); border-radius: 50%; color: #d9e6ab; background: rgba(255,255,255,.04); }
+.terrainHalf small { color: #91b093; font: 600 8px/1.5 ui-monospace, monospace; letter-spacing: 1px; }
+.terrainHalf h3 { margin: 5px 0 8px; font: 700 21px/1.2 'Songti SC', serif; }
+.terrainHalf p { margin: 0; color: #a9beb4; font-size: 11px; line-height: 1.7; }
+.terrainResult { position: absolute; z-index: 2; left: 18px; right: 18px; bottom: 17px; display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; color: #17362a; background: #dce7aa; }
+.terrainResult span { font-size: 10px; letter-spacing: 1px; }
+.terrainResult strong { font-family: 'Songti SC', serif; font-size: 16px; }
+.contourLines { position: absolute; inset: 0; opacity: .28; background: repeating-radial-gradient(ellipse at 7% 14%, transparent 0 28px, rgba(229,244,196,.2) 29px 30px, transparent 31px 48px); }
+
+.flavour { position: relative; min-height: 620px; padding: 76px 24px; overflow: hidden; color: var(--ink); background: #e9e0cd; }
+.flavour::after { content: ''; position: absolute; inset: auto -35% -22% 12%; height: 70%; border-radius: 50%; background: rgba(108,137,67,.1); transform: rotate(-12deg); }
+.citrusOrb { position: absolute; top: 94px; right: -95px; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle at 34% 28%, #ffc068 0 2%, transparent 2.5%), radial-gradient(circle at 48% 48%, #fb9142, #db6427 67%, #a7401d 100%); box-shadow: inset -22px -25px 55px rgba(100,30,8,.32), -30px 42px 70px rgba(74,64,34,.16); }
+.citrusOrb::before { content: ''; position: absolute; inset: 14px; border-radius: 50%; opacity: .24; background-image: radial-gradient(circle, #ffd39c 0 1px, transparent 1.5px); background-size: 8px 8px; }
+.citrusOrb span { position: absolute; top: -32px; left: 120px; width: 125px; height: 70px; border-radius: 100% 0 100% 0; background: linear-gradient(135deg, #547545, #194c36); transform: rotate(-22deg); box-shadow: inset 0 1px rgba(255,255,255,.25); }
+.citrusOrb i { position: absolute; inset: -15px; border: 1px solid rgba(79,92,47,.25); border-radius: 50%; }
+.flavourCopy { position: relative; z-index: 2; width: 59%; padding-top: 280px; }
+.flavour h2 { margin: 9px 0 20px; font-family: 'Songti SC', serif; font-size: clamp(47px, 14vw, 68px); line-height: 1.08; letter-spacing: -2px; }
+.flavourCopy > p { margin: 0; color: #58695f; font-size: 13px; line-height: 1.9; }
+.tastingNotes { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 22px; }
+.tastingNotes span { padding: 7px 9px; border: 1px solid rgba(41,79,59,.18); border-radius: 20px; color: #42614e; font-size: 9px; }
+
+.season { color: white; background: #183e31; }
+.seasonBadge { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 68px; height: 68px; flex: 0 0 auto; border: 1px solid rgba(220,235,176,.35); border-radius: 50%; color: #dbe9a9; font: 700 15px/1.1 'Songti SC', serif; }
+.seasonBadge small { margin: 2px 0; color: #88a493; font-size: 8px; font-weight: 500; }
+.timeline { position: relative; margin-top: 40px; }
+.timeline::before { content: ''; position: absolute; top: 0; bottom: 0; left: 16px; width: 1px; background: linear-gradient(#7e9c6d, rgba(126,156,109,.1)); }
+.timelineItem { position: relative; display: grid; grid-template-columns: 46px 63px 1fr; align-items: center; min-height: 83px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.timelineDot { position: relative; z-index: 1; width: 33px; height: 33px; border: 1px solid rgba(255,255,255,.18); border-radius: 50%; background: #183e31; }
+.timelineDot i { position: absolute; inset: 7px; border-radius: 50%; background: color-mix(in srgb, #e66f2e var(--ripeness), #5f8c46); box-shadow: 0 0 14px rgba(231,113,49,.2); }
+.timelineItem time { color: #91aa9e; font: 600 9px/1 ui-monospace, monospace; letter-spacing: 1px; }
+.timelineItem h3 { margin: 0 0 4px; font: 700 17px/1.2 'Songti SC', serif; }
+.timelineItem p { margin: 0; color: #91aaa0; font-size: 10px; }
+.seasonNote { margin: 23px 0 0 46px; color: #8aa096; font-size: 10px; }
+
+.journey { color: var(--ink); background: var(--paper); }
+.journey h2 { margin-top: 10px; }
+.journey > .bodyText { margin-top: 19px; }
+.journeyList { margin-top: 36px; border-top: 1px solid #d8d4c7; }
+.journeyList article { display: grid; grid-template-columns: 36px 1fr 22px; gap: 13px; align-items: center; padding: 20px 0; border-bottom: 1px solid #d8d4c7; }
+.journeyList article > span { align-self: start; padding-top: 2px; color: var(--orange); font: 700 10px/1 ui-monospace, monospace; }
+.journeyList h3 { margin: 0 0 6px; font: 700 17px/1.3 'Songti SC', serif; }
+.journeyList p { margin: 0; color: #718078; font-size: 11px; line-height: 1.7; }
+.journeyList svg { color: #93a098; }
+
+.trust { margin: 0 16px 76px; padding: 43px 25px 32px; text-align: center; border-radius: 150px 150px 12px 12px; color: white; background: var(--deep); }
+.trustIcon { display: grid; place-items: center; width: 58px; height: 58px; margin: 0 auto 18px; border: 1px solid rgba(221,234,179,.35); border-radius: 50%; color: #dce9aa; }
+.trust h2 { margin: 9px 0 13px; font: 700 28px/1.3 'Songti SC', serif; }
+.trust p { max-width: 450px; margin: 0 auto; color: #a9bcb3; font-size: 12px; line-height: 1.85; }
+.trustTags { display: flex; justify-content: center; gap: 6px; margin-top: 22px; }
+.trustTags span { padding: 6px 9px; border: 1px solid rgba(217,232,170,.18); border-radius: 20px; color: #cfdda8; font-size: 9px; }
+
+.cta { padding: 76px 24px calc(48px + env(safe-area-inset-bottom)); color: white; background: linear-gradient(145deg, #184d3b, #062b25); }
+.cta > p { margin: 0 0 14px; color: #a6beae; font-size: 11px; letter-spacing: 1px; }
+.cta h2 { margin: 0; font: 700 clamp(38px, 11vw, 55px)/1.25 'Songti SC', serif; }
+.ctaActions { display: grid; grid-template-columns: 1.3fr 1fr; gap: 9px; margin-top: 32px; }
+.ctaActions a { display: flex; align-items: center; justify-content: center; gap: 9px; min-height: 50px; padding: 0 14px; border-radius: 3px; color: #173628; background: #dce8a8; font-size: 12px; font-weight: 800; text-decoration: none; }
+.ctaActions .secondaryAction { border: 1px solid rgba(255,255,255,.2); color: #d8e1db; background: transparent; }
+.brand { display: block; margin-top: 45px; color: #729083; font-size: 9px; letter-spacing: 2px; text-align: center; }
+
+@media (min-width: 681px) {
+  .intro, .terroir, .season, .journey { padding-left: 52px; padding-right: 52px; }
+  .heroCopy { left: 52px; right: 52px; }
+  .flavour { padding-left: 52px; }
+  .cta { padding-left: 52px; padding-right: 52px; }
+}
+
+@media (max-width: 390px) {
+  .intro, .terroir, .season, .journey { padding-left: 20px; padding-right: 20px; }
+  .flavour { min-height: 650px; padding-left: 20px; }
+  .flavourCopy { width: 66%; }
+  .citrusOrb { right: -145px; }
+  .terrainHalf { padding-left: 14px; padding-right: 14px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .scrollCue span { animation: scrollLine 1.9s ease-in-out infinite; transform-origin: top; }
+  .citrusOrb { animation: citrusFloat 5s ease-in-out infinite alternate; }
+  @keyframes scrollLine { 0%, 100% { transform: scaleY(.35); opacity: .45; } 50% { transform: scaleY(1); opacity: 1; } }
+  @keyframes citrusFloat { to { transform: translateY(9px) rotate(2deg); } }
+}
