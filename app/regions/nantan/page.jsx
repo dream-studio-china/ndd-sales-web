@@ -42,8 +42,11 @@ if (BASE_PATH !== '/ndd') {
 export const metadata = { title: '南坦岛 · 新会陈皮产地志' }
 
 export default function NantanPage() {
+  const heroSrc = `${BASE_PATH}/assets/nantan/nantan-hero.webp`
   return (
     <>
+      {/* 平衡预加载：首屏 Hero 立即高优，其他按需；CSS 背景图需显式 preload 才能与 <img priority> 等效 */}
+      <link rel="preload" as="image" href={heroSrc} imageSrcSet={heroSrc} fetchPriority="high" />
       <style dangerouslySetInnerHTML={{ __html: styleCss }} />
       <div dangerouslySetInnerHTML={{ __html: bodyHtml }} />
       <SeasonHighlighter />
