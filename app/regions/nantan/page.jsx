@@ -2,6 +2,7 @@ import { readFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 import SeasonHighlighter from './SeasonHighlighter'
 import { BASE_PATH } from '../../../src/config'
+import HeroPreloader from '../../../src/HeroPreloader'
 
 // nantan 蓝本页：原为独立静态 HTML（此前经 next.config rewrites 暴露）。
 // 静态导出不支持 rewrites，改为真实路由页面：服务端读取静态 HTML，
@@ -45,8 +46,9 @@ export default function NantanPage() {
   const heroSrc = `${BASE_PATH}/assets/nantan/nantan-hero.webp`
   return (
     <>
-      {/* 平衡预加载：首屏 Hero 立即高优，其他按需；CSS 背景图需显式 preload 才能与 <img priority> 等效 */}
+      {/* 平衡预加载：首屏 Hero 立即高优（CSS 背景需显式 preload），其余低优空闲预取 */}
       <link rel="preload" as="image" href={heroSrc} imageSrcSet={heroSrc} fetchPriority="high" />
+      <HeroPreloader currentSlug="nantan" />
       <style dangerouslySetInnerHTML={{ __html: styleCss }} />
       <div dangerouslySetInnerHTML={{ __html: bodyHtml }} />
       <SeasonHighlighter />

@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { baseUrl, BASE_PATH } from './config'
+import HeroPreloader from './HeroPreloader'
 
 const regions = [
   { id: 'siqian', name: '司前片区', short: '司前', x: 1, y: 25, w: 24, h: 20, color: '#208d63', icon: '🥥', sales: 82, target: 92, reps: 12, trend: '+12.4%', farms: 32, heat: 86, path: 'M7 12 25 3l21 7 4 25-12 29-27-7L2 38Z' },
@@ -402,6 +403,8 @@ function Overview({ onEnterRegion }) {
     <main className="app-shell overview-screen">
       <div className="ambient ambient-one" />
       <div className="ambient ambient-two" />
+      {/* 平衡预加载：空闲时低优预取全量内页 Hero，首屏地图不受影响 */}
+      <HeroPreloader currentSlug={null} />
       {isEditMode && <LabelEditPanel editGeometry={editGeometry} />}
       <Link className="chenpi-entry" href="/regions/huicheng" aria-label="了解新会陈皮">
         <span className="chenpi-entry-dot" aria-hidden="true" />

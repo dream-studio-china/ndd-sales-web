@@ -5,6 +5,7 @@ import { regionStories, storyBySlug } from '../../../src/regionStories'
 import SeasonScale from './SeasonScale'
 import styles from './story.module.css'
 import { BASE_PATH } from '../../../src/config'
+import HeroPreloader from '../../../src/HeroPreloader'
 
 export function generateStaticParams() {
   return regionStories.map(({ slug }) => ({ slug }))
@@ -32,6 +33,7 @@ export default async function RegionStoryPage({ params }) {
 
   return (
     <main className={`${styles.page} ${styles[story.variant]} ${styles[story.motif]}`} style={theme}>
+      <HeroPreloader currentSlug={slug} />
       <header className={styles.hero}>
         <nav className={styles.nav}>
           <Link href="/" className={styles.back} aria-label="返回产区地图">← <span>产区地图</span></Link>
