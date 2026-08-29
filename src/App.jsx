@@ -1,6 +1,8 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
+import { baseUrl } from './config'
 
 const regions = [
   { id: 'siqian', name: '司前片区', short: '司前', x: 1, y: 25, w: 24, h: 20, color: '#208d63', icon: '🥥', sales: 82, target: 92, reps: 12, trend: '+12.4%', farms: 32, heat: 86, path: 'M7 12 25 3l21 7 4 25-12 29-27-7L2 38Z' },
@@ -128,7 +130,7 @@ function playClickSound() {
   }
 }
 
-function TransparentMap() {
+function TransparentMap({ onReady }) {
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -156,17 +158,20 @@ function TransparentMap() {
 
       context.clearRect(0, 0, canvas.width, canvas.height)
       context.putImageData(frame, 0, 0)
+      onReady?.()
     }
 
-    image.src = '/ndd/assets/sales-map-game-hd.webp'
+    image.onerror = () => onReady?.()
+    image.src = '/ndd/assets/sales-map-game.webp'
     return () => { image.onload = null }
-  }, [])
+  }, [onReady])
 
   return <canvas ref={canvasRef} className="map-art" aria-hidden="true" />
 }
 
 function Overview({ onEnterRegion }) {
   const [selected, setSelected] = useState(null)
+  const [mapReady, setMapReady] = useState(false)
   const [view, setView] = useState({ scale: 1.32, x: 0, y: 0 })
   const selectedGeometry = selected ? mapGeometry[selected.id] : null
   const mapSectionRef = useRef(null)
@@ -263,11 +268,11 @@ function Overview({ onEnterRegion }) {
     <main className="app-shell overview-screen">
       <div className="ambient ambient-one" />
       <div className="ambient ambient-two" />
-      <a className="chenpi-entry" href="/regions/huicheng" aria-label="了解新会陈皮">
+      <Link className="chenpi-entry" href="/regions/huicheng" aria-label="了解新会陈皮">
         <span className="chenpi-entry-dot" aria-hidden="true" />
         <b>了解新会陈皮</b>
         <Icon name="arrow" size={14} />
-      </a>
+      </Link>
       <section
         ref={mapSectionRef}
         className="map-section"
@@ -281,7 +286,7 @@ function Overview({ onEnterRegion }) {
         <div ref={mapStageRef} className="map-stage" style={{ transform: `translate3d(${view.x}px, ${view.y}px, 0) scale(${view.scale})` }}>
           <div className="map-grid" />
           <div className="map-radar" />
-          <TransparentMap />
+          <TransparentMap onReady={() => setMapReady(true)} />
           <svg className="route-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
             <path d="M22 32 C35 25 48 27 57 31 S73 40 86 38 M22 53 C36 50 42 64 57 68 S74 61 86 61 M52 32 C48 45 51 55 63 60" />
           </svg>
@@ -350,6 +355,12 @@ function Overview({ onEnterRegion }) {
           </svg>
           {labeledRegions.map((region) => <MapRegion key={region.id} region={region} selected={selected?.id === region.id} onClick={choose} />)}
           <div className="map-compass"><b>N</b><i /></div>
+        </div>
+
+        {/* 地图加载态 */}
+        <div className={`map-loading ${mapReady ? 'is-ready' : ''}`} aria-hidden={mapReady} role="status">
+          <div className="map-loading-spinner" />
+          <p>地图加载中…</p>
         </div>
       </section>
 
@@ -434,7 +445,7 @@ export default function App() {
   const [activeRegion, setActiveRegion] = useState(null)
   const enterRegion = (region) => {
     if (documentedRegionIds.has(region.id)) {
-      window.location.assign(`/regions/${region.id}`)
+      window.location.assign(baseUrl(`/regions/${region.id}`))
       return
     }
     setActiveRegion(region)
