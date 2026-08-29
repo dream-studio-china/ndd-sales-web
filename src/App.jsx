@@ -100,6 +100,20 @@ function MapRegion({ region, selected, onClick }) {
   )
 }
 
+function isMiniProgram() {
+  // 运行在微信小程序 web-view 中时，window.__wxjs_environment === 'miniprogram'
+  return typeof window !== 'undefined' && window.__wxjs_environment === 'miniprogram'
+}
+
+function jumpToMiniProgram(region) {
+  // 从 H5 web-view 跳转到小程序原生购买页（页面按产区 slug 展示时令产品）
+  try {
+    window.wx?.miniprogram?.navigateTo?.({ url: `/pages/sale/region?slug=${region.id}` })
+  } catch {
+    // 非小程序环境忽略
+  }
+}
+
 let audioContext = null
 
 function playClickSound() {
@@ -384,6 +398,9 @@ function Overview({ onEnterRegion }) {
               <div><span>农场数</span><strong>{selected.farms}<small>家</small></strong></div>
               <div><span>达标率</span><strong>{Math.round(selected.sales / selected.target * 100)}<small>%</small></strong></div>
             </div>
+            {isMiniProgram() && (
+              <button className="dock-buy" onClick={() => jumpToMiniProgram(selected)}>立即购买 <Icon name="arrow" size={14} /></button>
+            )}
             {documentedRegionIds.has(selected.id)
               ? <button className="dock-enter" onClick={() => onEnterRegion?.(selected)}>进入产区 <Icon name="arrow" size={14} /></button>
               : <div className="dock-unavailable">暂无独立产区介绍</div>}
