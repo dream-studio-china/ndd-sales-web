@@ -54,7 +54,7 @@ export default async function RegionStoryPage({ params }) {
           <div className={styles.heroArt}>
             <Image
               className={styles.heroImage}
-              src={`/assets/regions/${story.slug}-hero.webp`}
+              src={`/ndd/assets/regions/${story.slug}-hero.webp`}
               alt={`${story.name}产区风土主视觉`}
               fill
               priority

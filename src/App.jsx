@@ -158,7 +158,7 @@ function TransparentMap() {
       context.putImageData(frame, 0, 0)
     }
 
-    image.src = '/assets/sales-map-game-hd.webp'
+    image.src = '/ndd/assets/sales-map-game-hd.webp'
     return () => { image.onload = null }
   }, [])
 

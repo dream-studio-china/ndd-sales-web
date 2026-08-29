@@ -6,7 +6,7 @@ import SeasonHighlighter from './SeasonHighlighter'
 // 静态导出不支持 rewrites，改为真实路由页面：服务端读取静态 HTML，
 // 仅提取 <style> 与 <body> 内部内容注入（避免嵌套 html/head），
 // 内嵌 script 不会被 React 执行，改由客户端组件复刻高亮逻辑。
-const html = readFileSync(join(process.cwd(), 'public/assets/nantan/nantan-origin.html'), 'utf8')
+const html = readFileSync(join(process.cwd(), 'public/ndd/assets/nantan/nantan-origin.html'), 'utf8')
 const styleMatch = html.match(/<style>([\s\S]*?)<\/style>/)
 const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/)
 
