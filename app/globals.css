@@ -135,7 +135,7 @@ button { font: inherit; color: inherit; border: 0; cursor: pointer; }
 .region-landmark { position: absolute; left: 0; top: -25px; transform: translate(-50%,-50%); display: grid; place-items: center; width: 28px; height: 28px; border: 1px solid rgba(236,255,218,.34); border-radius: 10px 10px 12px 12px; font-size: clamp(14px, 4.4vw, 20px); background: linear-gradient(145deg, rgba(237,255,204,.2), rgba(4,48,40,.66)); box-shadow: 0 7px 12px rgba(0,0,0,.2), inset 0 1px rgba(255,255,255,.16); filter: drop-shadow(0 4px 3px rgba(0,0,0,.18)); pointer-events: none; transition: transform .25s ease; }
 .region-landmark::after { content: ''; position: absolute; bottom: -4px; width: 6px; height: 6px; transform: rotate(45deg); background: rgba(20,76,58,.95); }
 .map-region:not(.is-subregion) .region-landmark { display: none; }
-.region-label { position: absolute; z-index: 3; left: 0; top: 0; min-width: 49px; transform: translate(-50%,-50%); display: flex; align-items: center; justify-content: center; padding: 4px 8px 5px; border-radius: 9px; white-space: nowrap; color: #f3fff8; background: rgba(7,50,41,.79); border: 1px solid rgba(218,255,229,.14); box-shadow: 0 5px 10px rgba(0,0,0,.16); backdrop-filter: blur(7px); }
+.region-label { position: absolute; z-index: 3; left: 0; top: 0; min-width: 49px; transform: translate(-50%,-50%); display: flex; align-items: center; justify-content: center; padding: 4px 8px 5px; border-radius: 9px; white-space: nowrap; color: #f3fff8; background: rgba(7,50,41,.5); border: 1px solid rgba(218,255,229,.14); box-shadow: 0 5px 10px rgba(0,0,0,.16); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
 .region-label span { font-size: clamp(10px, 3.2vw, 13px); font-weight: 800; letter-spacing: .2px; }
 .region-label small { color: var(--lime); font-size: 8px; font-family: 'Barlow Condensed', sans-serif; }
 .map-region.is-selected { z-index: 7; transform: translateY(-3px) scale(1.06); filter: drop-shadow(0 0 12px rgba(189,244,75,.3)); }
@@ -145,8 +145,8 @@ button { font: inherit; color: inherit; border: 0; cursor: pointer; }
 .map-region.is-subregion { z-index: 5; }
 .map-region.is-subregion .region-landmark { top: -9px; width: 9px; height: 9px; border: 0; border-radius: 50%; color: transparent; font-size: 0; background: var(--lime); box-shadow: 0 0 0 3px rgba(189,244,75,.12), 0 0 9px rgba(189,244,75,.4); }
 .map-region.is-subregion .region-landmark::after { display: none; }
-.map-region.is-subregion .region-label { min-width: 0; padding: 2px 5px 3px; border: 0; border-radius: 6px; background: rgba(8,59,45,.45); box-shadow: none; }
-.map-region.is-subregion .region-label span { font-size: clamp(8px, 2.5vw, 10px); color: #d7eee5; }
+.map-region.is-subregion .region-label { min-width: 0; padding: 4px 8px 5px; border-radius: 9px; background: rgba(7,50,41,.5); border: 1px solid rgba(218,255,229,.14); box-shadow: 0 5px 10px rgba(0,0,0,.16); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.map-region.is-subregion .region-label span { font-size: clamp(10px, 3.2vw, 13px); font-weight: 800; color: #d7eee5; }
 .map-region.is-subregion.is-selected { z-index: 8; transform: translateY(-3px) scale(1.08); }
 .map-compass { position: absolute; z-index: 4; right: 3px; top: 8%; display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid rgba(255,255,255,.17); border-radius: 50%; color: var(--lime); background: rgba(7,28,30,.7); font: 700 9px 'Barlow Condensed'; }
 .map-compass i { position: absolute; bottom: 3px; border: 3px solid transparent; border-top: 6px solid #73988f; }
