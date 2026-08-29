@@ -27,7 +27,7 @@ const styleMatch = html.match(/<style>([\s\S]*?)<\/style>/)
 const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/)
 
 let styleCss = styleMatch ? styleMatch[1] : ''
-let bodyHtml = bodyMatch ? bodyMatch[1].replace(/<\/?(?:html|head|body)[^>]*>/g, '') : ''
+let bodyHtml = bodyMatch ? bodyMatch[1].replace(/<\/?(?:html|head|body)\b[^>]*>/g, '') : ''
 
 // 动态替换硬编码的 /ndd/ 前缀为当前 BASE_PATH（兼容 Vercel 根部署）
 // 需处理 style url()、href、src 等多种写法，且 BASE_PATH 为 '' 时避免产生 // 
