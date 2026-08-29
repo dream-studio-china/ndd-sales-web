@@ -9,8 +9,8 @@
 }
 
 * { box-sizing: border-box; }
-html, body { width: 100%; min-height: 100%; margin: 0; }
-body { overflow-x: hidden; background: #020d15; -webkit-tap-highlight-color: transparent; }
+html, body { width: 100%; min-height: 100%; margin: 0; overscroll-behavior: none; }
+body { overflow-x: hidden; background: #020d15; -webkit-tap-highlight-color: transparent; overscroll-behavior: none; touch-action: pan-y; }
 button { font: inherit; color: inherit; border: 0; cursor: pointer; }
 
 .app-shell {
@@ -30,6 +30,8 @@ button { font: inherit; color: inherit; border: 0; cursor: pointer; }
   user-select: none;
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+  touch-action: none;
   background:
     radial-gradient(ellipse 78% 58% at 50% 43%, rgba(26, 127, 91, .3) 0%, rgba(10, 57, 57, .2) 39%, transparent 73%),
     radial-gradient(circle at 8% 16%, rgba(33, 117, 126, .2), transparent 31%),
@@ -100,7 +102,7 @@ button { font: inherit; color: inherit; border: 0; cursor: pointer; }
 .progress i, .task-progress i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #24d890, var(--lime)); box-shadow: 0 0 10px rgba(189,244,75,.5); }
 .mission-card > p { margin: 8px 0 0; color: #a2bcb4; font-size: 10px; }
 
-.map-section { position: relative; z-index: 2; display: grid; place-items: center; width: 100%; height: 100%; margin: 0; overflow: hidden; touch-action: none; cursor: grab; }
+.map-section { position: relative; z-index: 2; display: grid; place-items: center; width: 100%; height: 100%; margin: 0; overflow: hidden; touch-action: none; overscroll-behavior: none; cursor: grab; }
 .map-section:active { cursor: grabbing; }
 .map-heading { display: flex; align-items: end; justify-content: space-between; padding: 0 3px 5px; }
 .map-heading p { margin: 0; color: #74a399; font-size: 10px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }

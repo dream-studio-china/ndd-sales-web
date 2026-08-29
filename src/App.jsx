@@ -341,6 +341,13 @@ function Overview({ onEnterRegion }) {
     window.addEventListener('resize', keepMapInBounds)
     return () => window.removeEventListener('resize', keepMapInBounds)
   }, [])
+  // 禁用长按选区（仅地图页）：CSS 已设 user-select:none，此处再拦截 selectstart 事件避免控制台告警
+  useEffect(() => {
+    const el = document.querySelector('.overview-screen')
+    const handler = (e) => e.preventDefault()
+    el?.addEventListener('selectstart', handler)
+    return () => el?.removeEventListener('selectstart', handler)
+  }, [])
 
   const handlePointerDown = (event) => {
     event.currentTarget.setPointerCapture(event.pointerId)
@@ -403,7 +410,6 @@ function Overview({ onEnterRegion }) {
     <main
       className="app-shell overview-screen"
       onContextMenu={(e) => e.preventDefault()}
-      onSelectStart={(e) => e.preventDefault()}
     >
       <div className="ambient ambient-one" />
       <div className="ambient ambient-two" />
