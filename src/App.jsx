@@ -445,7 +445,8 @@ export default function App() {
   const [activeRegion, setActiveRegion] = useState(null)
   const enterRegion = (region) => {
     if (documentedRegionIds.has(region.id)) {
-      window.location.assign(baseUrl(`/regions/${region.id}`))
+      // trailingSlash:true 要求以 / 结尾，避免 308 重定向（尤其静态导出）
+      window.location.assign(baseUrl(`/regions/${region.id}/`))
       return
     }
     setActiveRegion(region)

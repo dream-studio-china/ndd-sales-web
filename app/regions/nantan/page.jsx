@@ -30,11 +30,13 @@ let styleCss = styleMatch ? styleMatch[1] : ''
 let bodyHtml = bodyMatch ? bodyMatch[1].replace(/<\/?(?:html|head|body)[^>]*>/g, '') : ''
 
 // 动态替换硬编码的 /ndd/ 前缀为当前 BASE_PATH（兼容 Vercel 根部署）
+// 需处理 style url()、href、src 等多种写法，且 BASE_PATH 为 '' 时避免产生 // 
 if (BASE_PATH !== '/ndd') {
-  styleCss = styleCss.replaceAll('/ndd/', `${BASE_PATH}/`)
-  bodyHtml = bodyHtml.replaceAll('"/ndd/', `"${BASE_PATH}/`)
-  bodyHtml = bodyHtml.replaceAll("'/ndd/", `'${BASE_PATH}/`)
-  bodyHtml = bodyHtml.replaceAll('href="/ndd/', `href="${BASE_PATH}/`)
+  const normalizedBase = BASE_PATH || ''
+  const prefix = normalizedBase ? `${normalizedBase}/` : '/'
+  styleCss = styleCss.replaceAll('/ndd/', prefix)
+  // 统一替换所有 "/ndd/ 前缀（含 href/src/url）
+  bodyHtml = bodyHtml.replaceAll('/ndd/', prefix)
 }
 
 export const metadata = { title: '南坦岛 · 新会陈皮产地志' }

@@ -86,6 +86,22 @@ ErrorDocument 404 ${errDoc}
 `
 }
 
+function htaccessRootForSubdir(prefix) {
+  const p = prefix.replace(/^\//, '')
+  return `# ndd-sales-web · 根目录重定向到子目录 ${prefix}（兼容直接访问 /regions/nantan/）
+# 若整站以子目录部署，访问根路径 /regions/* 时自动跳至 ${prefix}/regions/*
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # 根路径 -> 子目录
+  RewriteRule ^$ ${prefix}/ [R=301,L]
+  # /regions/* -> ${prefix}/regions/*（含 nantan）
+  RewriteRule ^regions/(.*)$ ${prefix}/regions/$1 [R=301,L]
+  # /assets/* -> ${prefix}/assets/*（兼容旧外链）
+  RewriteRule ^assets/(.*)$ ${prefix}/assets/$1 [R=301,L]
+</IfModule>
+`
+}
+
 if (!existsSync(out)) {
   console.log('[assemble] out 目录不存在，跳过组装')
   process.exit(0)
@@ -125,7 +141,9 @@ for (const entry of readdirSync(out)) {
 
 // 生成子目录专属 .htaccess
 writeFileSync(join(target, '.htaccess'), htaccessFor(basePath))
-writeFileSync(join(out, '.htaccess'), htaccessFor(basePath))
+// 根目录生成重定向到子目录的 .htaccess（修复直接访问 /regions/nantan/ 问题）
+writeFileSync(join(out, '.htaccess'), htaccessRootForSubdir(basePath) + '\n' + htaccessFor(basePath))
 
 console.log(`[assemble] out/${cleanName} 已组装为自包含部署目录 (basePath=${basePath})`)
 console.log(`[assemble] 部署体积约 ${(size / 1024 / 1024).toFixed(1)} MB（上传 out/${cleanName} 内容到服务器 ${basePath}/）`)
+console.log(`[assemble] 已生成 out/.htaccess（根重定向到 ${basePath}）与 out/${cleanName}/.htaccess`)
