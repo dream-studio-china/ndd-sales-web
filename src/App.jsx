@@ -42,25 +42,25 @@ const labeledRegions = visibleRegions.filter((region) => !unnamedRegionIds.has(r
 // 所有区域使用同一套坐标系和共享顶点，组合后是一张无空隙的完整地图。
 const mapGeometry = {
   huicheng: { d: 'M38 16 45 3 65 4 61 20 55 24 42 32Z', lx: 50, ly: 24 },
-  dadong: { d: 'M52 6 61 5 64 11 59 16 51 14Z', lx: 58, ly: 10 },
-  dongjia: { d: 'M65 4 75 15 70 28 61 20Z', lx: 68, ly: 12 },
-  daze: { d: 'M20 20 38 16 42 32 34 43 18 38Z', lx: 29, ly: 28 },
-  meijiang: { d: 'M42 32 55 24 50 37 43 47 34 43Z', lx: 44, ly: 36 },
-  tianlu: { d: 'M55 24 61 20 70 28 60 36 50 37Z', lx: 59, ly: 29 },
+  dadong: { d: 'M52 6 61 5 64 11 59 16 51 14Z', lx: 59.7, ly: 10.2 },
+  dongjia: { d: 'M65 4 75 15 70 28 61 20Z', lx: 70.7, ly: 19.2 },
+  daze: { d: 'M20 20 38 16 42 32 34 43 18 38Z', lx: 23.5, ly: 34.5 },
+  meijiang: { d: 'M42 32 55 24 50 37 43 47 34 43Z', lx: 43.6, ly: 40.6 },
+  tianlu: { d: 'M55 24 61 20 70 28 60 36 50 37Z', lx: 54.6, ly: 28.9 },
   xijia: { d: 'M70 28 79 42 71 44 60 36Z', lx: 70, ly: 36 },
-  siqian: { d: 'M3 38 18 38 34 43 28 60 12 62 3 52Z', lx: 16, ly: 49 },
-  qibao: { d: 'M34 43 43 47 42 59 28 60Z', lx: 35, ly: 52 },
-  tianma: { d: 'M50 37 60 36 71 44 79 42 72 56 62 48 42 59 43 47Z', lx: 55, ly: 48 },
+  siqian: { d: 'M3 38 18 38 34 43 28 60 12 62 3 52Z', lx: 7.2, ly: 51.1 },
+  qibao: { d: 'M34 43 43 47 42 59 28 60Z', lx: 28.7, ly: 55.8 },
+  tianma: { d: 'M50 37 60 36 71 44 79 42 72 56 62 48 42 59 43 47Z', lx: 61.4, ly: 53.8 },
   daao: { d: 'M79 42 98 38 96 62 78 70 72 56Z', lx: 87, ly: 52 },
-  nantan: { d: 'M28 60 42 59 48 76 44 78 36 72Z', lx: 37, ly: 67 },
-  chakeng: { d: 'M42 59 62 48 72 56 57 62 48 76Z', lx: 52, ly: 63 },
+  nantan: { d: 'M28 60 42 59 48 76 44 78 36 72Z', lx: 41.4, ly: 63.4 },
+  chakeng: { d: 'M42 59 62 48 72 56 57 62 48 76Z', lx: 54.8, ly: 73.3 },
   luokeng: { d: 'M12 62 28 60 36 72 30 88 15 83Z', lx: 23, ly: 74 },
-  sanjiang: { d: 'M48 76 57 62 72 56 78 70 78 86 64 96 55 89Z', lx: 65, ly: 77 },
-  muzhou: { d: 'M78 70 96 62 99 85 92 98 78 86Z', lx: 89, ly: 79 },
-  shuangshui: { d: 'M30 88 36 72 44 78 48 76 55 89 64 96 52 110 36 115 25 102Z', lx: 40, ly: 98 },
-  shadui: { d: 'M64 96 78 86 92 98 89 120 72 127 76 108Z', lx: 79, ly: 108 },
-  gujing: { d: 'M52 110 64 96 76 108 72 127 60 142 61 121Z', lx: 64, ly: 121 },
-  yamen: { d: 'M36 115 52 110 61 121 60 142 50 150 38 138Z', lx: 49, ly: 134 },
+  sanjiang: { d: 'M48 76 57 62 72 56 78 70 78 86 64 96 55 89Z', lx: 72.4, ly: 76 },
+  muzhou: { d: 'M78 70 96 62 99 85 92 98 78 86Z', lx: 92.2, ly: 80.9 },
+  shuangshui: { d: 'M30 88 36 72 44 78 48 76 55 89 64 96 52 110 36 115 25 102Z', lx: 39.4, ly: 98.8 },
+  shadui: { d: 'M64 96 78 86 92 98 89 120 72 127 76 108Z', lx: 85.4, ly: 103.4 },
+  gujing: { d: 'M52 110 64 96 76 108 72 127 60 142 61 121Z', lx: 70.5, ly: 111.6 },
+  yamen: { d: 'M36 115 52 110 61 121 60 142 50 150 38 138Z', lx: 51.3, ly: 136.2 },
 }
 
 const mapOutline = 'M45 3 Q55 1 65 4 Q72 7 75 15 L70 28 Q76 33 79 42 Q89 39 98 38 Q99 50 96 62 Q99 73 99 85 Q96 92 92 98 Q92 110 89 120 Q80 125 72 127 Q65 137 60 142 Q55 148 50 150 Q43 145 38 138 Q36 126 36 115 Q29 110 25 102 Q19 94 15 83 Q13 72 12 62 Q5 58 3 52 L3 38 Q10 37 18 38 Q17 28 20 20 Q28 18 38 16 Q41 8 45 3Z'
@@ -83,20 +83,74 @@ function Icon({ name, size = 20 }) {
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>
 }
 
-function MapRegion({ region, selected, onClick }) {
-  const geometry = mapGeometry[region.id]
+function MapRegion({ region, selected, onClick, isEditMode, editGeometry, onPositionChange }) {
+  const geometry = isEditMode && editGeometry?.[region.id] ? editGeometry[region.id] : mapGeometry[region.id]
+  const [dragging, setDragging] = useState(false)
+  const handlePointerDown = (e) => {
+    if (!isEditMode) return
+    e.preventDefault()
+    e.stopPropagation()
+    const stage = e.currentTarget.closest('.map-stage')
+    const rect = stage?.getBoundingClientRect()
+    if (!rect) return
+    setDragging(true)
+    const startX = e.clientX
+    const startY = e.clientY
+    const startLx = geometry.lx
+    const startLy = geometry.ly
+    const onMove = (ev) => {
+      const dx = ((ev.clientX - startX) / rect.width) * 100
+      const dy = ((ev.clientY - startY) / rect.height) * 150 // ly/1.5% => *150
+      const nextLx = Math.round((startLx + dx) * 10) / 10
+      const nextLy = Math.round((startLy + dy) * 10) / 10
+      onPositionChange?.(region.id, { lx: Math.max(0, Math.min(100, nextLx)), ly: Math.max(0, Math.min(150, nextLy)) })
+    }
+    const onUp = () => {
+      setDragging(false)
+      window.removeEventListener('pointermove', onMove)
+      window.removeEventListener('pointerup', onUp)
+    }
+    window.addEventListener('pointermove', onMove)
+    window.addEventListener('pointerup', onUp)
+  }
   return (
     <button
-      className={`map-region ${region.kind === 'sub' ? 'is-subregion' : ''} ${selected ? 'is-selected' : ''}`}
+      className={`map-region ${region.kind === 'sub' ? 'is-subregion' : ''} ${selected ? 'is-selected' : ''} ${isEditMode ? 'is-editable' : ''} ${dragging ? 'is-dragging' : ''}`}
       style={{ '--x': `${geometry.lx}%`, '--y': `${geometry.ly / 1.5}%`, '--region': region.color }}
-      onClick={() => onClick(region)}
-      aria-label={`进入${region.name}，当前产量${(region.sales * 1000).toLocaleString()}斤`}
+      onClick={() => !isEditMode && onClick(region)}
+      onPointerDown={handlePointerDown}
+      aria-label={`${isEditMode ? `拖拽 ${region.name} lx:${geometry.lx} ly:${geometry.ly} — ` : ''}进入${region.name}，当前产量${(region.sales * 1000).toLocaleString()}斤`}
     >
       <span className="region-landmark">{region.icon}</span>
       <span className="region-label">
         <span>{region.short}</span>
       </span>
+      {isEditMode && <span className="edit-badge">{geometry.lx},{geometry.ly}</span>}
     </button>
+  )
+}
+
+function LabelEditPanel({ editGeometry }) {
+  const [copied, setCopied] = useState(false)
+  const text = `const mapGeometry = {\n${Object.entries(editGeometry).map(([k, v]) => `  ${k}: { d: '${v.d}', lx: ${v.lx}, ly: ${v.ly} },`).join('\n')}\n}`
+  const copy = async () => {
+    try { await navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 1200) } catch {}
+    console.log('[label-edit] mapGeometry\n' + text)
+  }
+  return (
+    <div className="label-edit-panel">
+      <div className="label-edit-head">
+        <b>标签位置调试</b><span>?edit=labels</span>
+        <button onClick={copy}>{copied ? '已复制' : '复制全部'}</button>
+        <button onClick={() => { try { localStorage.removeItem('editGeometry'); location.href = location.pathname } catch {} }}>退出</button>
+      </div>
+      <div className="label-edit-list">
+        {Object.entries(editGeometry).map(([id, g]) => (
+          <span key={id} className="label-edit-item">{id}: {g.lx},{g.ly}</span>
+        ))}
+      </div>
+      <div className="label-edit-tip">拖拽标签实时更新 lx/ly（--y: ly/1.5%），复制后粘贴至 src/App.jsx:43</div>
+    </div>
   )
 }
 
@@ -232,7 +286,28 @@ function Overview({ onEnterRegion }) {
   const [selected, setSelected] = useState(null)
   const [mapReady, setMapReady] = useState(false)
   const [view, setView] = useState({ scale: 1.32, x: 0, y: 0 })
-  const selectedGeometry = selected ? mapGeometry[selected.id] : null
+  const [isEditMode, setIsEditMode] = useState(false)
+  const [editGeometry, setEditGeometry] = useState(mapGeometry)
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search)
+      if (params.get('edit') === 'labels') {
+        setIsEditMode(true)
+        const saved = localStorage.getItem('editGeometry')
+        if (saved) { try { const parsed = JSON.parse(saved); setEditGeometry(prev => ({ ...prev, ...parsed })) } catch {} }
+      }
+    } catch {}
+  }, [])
+  const handlePositionChange = (id, pos) => {
+    setEditGeometry(prev => {
+      const next = { ...prev, [id]: { ...prev[id], lx: pos.lx, ly: pos.ly } }
+      try { localStorage.setItem('editGeometry', JSON.stringify(next)) } catch {}
+      console.log(`[label-edit] ${id}: lx ${pos.lx}, ly ${pos.ly}`)
+      return next
+    })
+  }
+  const activeGeometry = isEditMode ? editGeometry : mapGeometry
+  const selectedGeometry = selected ? activeGeometry[selected.id] : null
   const mapSectionRef = useRef(null)
   const mapStageRef = useRef(null)
   const gesture = useRef({ pointers: new Map(), startView: null, startDistance: 0, startCenter: null, moved: false })
@@ -327,6 +402,7 @@ function Overview({ onEnterRegion }) {
     <main className="app-shell overview-screen">
       <div className="ambient ambient-one" />
       <div className="ambient ambient-two" />
+      {isEditMode && <LabelEditPanel editGeometry={editGeometry} />}
       <Link className="chenpi-entry" href="/regions/huicheng" aria-label="了解新会陈皮">
         <span className="chenpi-entry-dot" aria-hidden="true" />
         <b>了解新会陈皮</b>
@@ -373,16 +449,10 @@ function Overview({ onEnterRegion }) {
               {visibleRegions.map(region => (
                 <path
                   key={region.id}
-                className={`territory-shape ${region.kind === 'sub' ? 'is-subregion' : ''} ${selected?.id === region.id ? 'is-selected' : ''}`}
+                  className={`territory-shape ${region.kind === 'sub' ? 'is-subregion' : ''} ${selected?.id === region.id ? 'is-selected' : ''}`}
                   style={{ '--region': region.color, '--terrain': `url(#terrain-${region.id})` }}
                   d={mapGeometry[region.id].d}
-                  role="button"
-                  tabIndex="0"
-                  aria-label={`选择${region.name}`}
-                  onClick={() => choose(region)}
-                  onKeyDown={(event) => {
-                    if (event.key === 'Enter' || event.key === ' ') choose(region)
-                  }}
+                  aria-hidden="true"
                 />
               ))}
               <g className="map-roads" aria-hidden="true">
@@ -395,13 +465,13 @@ function Overview({ onEnterRegion }) {
             {selected && (
               <g
                 key={`effect-${selected.id}`}
-                className={`selection-effect ${selected.kind === 'sub' ? 'is-subregion' : ''}`}
+                className="selection-effect"
                 transform={`translate(${selectedGeometry.lx} ${selectedGeometry.ly})`}
                 aria-hidden="true"
               >
-                <circle className="selection-aura" r={selected.kind === 'sub' ? 6 : 12} />
-                <circle className="selection-ring" r={selected.kind === 'sub' ? 3.5 : 8} />
-                <circle className="selection-orbit" r={selected.kind === 'sub' ? 5 : 10.5} />
+                <circle className="selection-aura" r={12} />
+                <circle className="selection-ring" r={8} />
+                <circle className="selection-orbit" r={10.5} />
                 <g className="selection-sparks">
                   <circle cx="-10" cy="-4" r=".7" />
                   <circle cx="9" cy="-7" r=".55" />
@@ -412,7 +482,7 @@ function Overview({ onEnterRegion }) {
             )}
             <path className="territory-outline" d={mapOutline} />
           </svg>
-          {labeledRegions.map((region) => <MapRegion key={region.id} region={region} selected={selected?.id === region.id} onClick={choose} />)}
+          {labeledRegions.map((region) => <MapRegion key={region.id} region={region} selected={selected?.id === region.id} onClick={choose} isEditMode={isEditMode} editGeometry={editGeometry} onPositionChange={handlePositionChange} />)}
           <div className="map-compass"><b>N</b><i /></div>
         </div>
 
