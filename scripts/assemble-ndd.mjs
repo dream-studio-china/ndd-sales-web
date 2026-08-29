@@ -8,10 +8,10 @@ const root = resolve(import.meta.dirname, '..')
 const out = resolve(root, 'out')
 const target = resolve(out, 'ndd')
 
-// 清空并重建 out/ndd（保留已生成的 assets）
+// 清空并重建 out/ndd（保留已生成的 assets 与 .htaccess 避免重复构建丢失）
 mkdirSync(target, { recursive: true })
 for (const entry of readdirSync(target)) {
-  if (entry !== 'assets') rmSync(join(target, entry), { recursive: true, force: true })
+  if (entry !== 'assets' && entry !== '.htaccess') rmSync(join(target, entry), { recursive: true, force: true })
 }
 
 let size = 0
