@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { regionStories, storyBySlug } from '../../../src/regionStories'
 import SeasonScale from './SeasonScale'
 import styles from './story.module.css'
+import { BASE_PATH } from '../../../src/config'
 
 export function generateStaticParams() {
   return regionStories.map(({ slug }) => ({ slug }))
@@ -54,7 +55,7 @@ export default async function RegionStoryPage({ params }) {
           <div className={styles.heroArt}>
             <Image
               className={styles.heroImage}
-              src={`/ndd/assets/regions/${story.slug}-hero.webp`}
+              src={`${BASE_PATH}/assets/regions/${story.slug}-hero.webp`}
               alt={`${story.name}产区风土主视觉`}
               fill
               priority

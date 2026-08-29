@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { baseUrl } from './config'
+import { baseUrl, BASE_PATH } from './config'
 
 const regions = [
   { id: 'siqian', name: '司前片区', short: '司前', x: 1, y: 25, w: 24, h: 20, color: '#208d63', icon: '🥥', sales: 82, target: 92, reps: 12, trend: '+12.4%', farms: 32, heat: 86, path: 'M7 12 25 3l21 7 4 25-12 29-27-7L2 38Z' },
@@ -162,7 +162,7 @@ function TransparentMap({ onReady }) {
     }
 
     image.onerror = () => onReady?.()
-    image.src = '/ndd/assets/sales-map-game.webp'
+    image.src = `${BASE_PATH}/assets/sales-map-game.webp`
     return () => { image.onload = null }
   }, [onReady])
 

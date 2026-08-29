@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>南坦岛 · 新会陈皮产地志</title>
+  <style>
+    :root {
+      --ink: #26352b;
+      --muted: #748078;
+      --paper: #f7f2e7;
+      --card: #fffdf7;
+      --green: #355f45;
+      --deep: #173c2a;
+      --orange: #dc6f2d;
+      --line: rgba(53,95,69,.14);
+    }
+    * { box-sizing: border-box; }
+    html { background: #d7d2c8; }
+    body {
+      margin: 0 auto;
+      width: min(100%, 430px);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 80% 19%, rgba(231,145,64,.08), transparent 18%),
+        var(--paper);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.72;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    .hero {
+      position: relative;
+      height: 690px;
+      padding: calc(18px + env(safe-area-inset-top)) 22px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: white;
+      background: #254832 url("/ndd/assets/nantan/nantan-hero.png") center 58% / cover no-repeat;
+      isolation: isolate;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(180deg, rgba(15,36,24,.58) 0%, rgba(15,36,24,.04) 38%, rgba(18,42,28,.12) 62%, rgba(18,42,28,.83) 100%);
+    }
+    .topbar { display: flex; align-items: center; justify-content: space-between; font-size: 13px; letter-spacing: .06em; }
+    .back, .share { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; color: white; background: rgba(15,32,22,.30); backdrop-filter: blur(10px); font-size: 21px; text-decoration: none; }
+    .series { padding: 6px 12px; border: 1px solid rgba(255,255,255,.36); border-radius: 999px; background: rgba(20,42,27,.24); backdrop-filter: blur(8px); }
+    .hero-copy { max-width: 330px; }
+    .eyebrow { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; font-size: 12px; font-weight: 650; letter-spacing: .18em; }
+    .eyebrow::before { content: ""; width: 22px; height: 1px; background: #efb06d; }
+    h1 { margin: 0; font-family: "Songti SC", "STSong", serif; font-size: 42px; line-height: 1.12; letter-spacing: .04em; font-weight: 700; text-shadow: 0 2px 22px rgba(0,0,0,.28); }
+    .hero-sub { margin: 13px 0 0; max-width: 270px; font-size: 15px; line-height: 1.65; color: rgba(255,255,255,.9); }
+    .hero-meta { display: flex; gap: 10px; margin-top: 22px; }
+    .hero-meta span { padding: 6px 10px; border-radius: 6px; background: rgba(255,255,255,.16); backdrop-filter: blur(8px); font-size: 12px; }
+    .intro { position: relative; margin: -2px 16px 0; padding: 28px 24px 30px; transform: translateY(-22px); border-radius: 18px; background: var(--card); box-shadow: 0 16px 40px rgba(44,55,42,.12); }
+    .intro-mark { color: var(--orange); font-family: Georgia, serif; font-size: 38px; line-height: .8; }
+    .intro p { margin: 11px 0 0; font-family: "Songti SC", "STSong", serif; font-size: 19px; line-height: 1.75; letter-spacing: .02em; }
+    .intro small { display: block; margin-top: 16px; color: var(--muted); font-size: 13px; }
+    main { padding: 2px 20px 116px; }
+    section { margin-top: 54px; }
+    .num { display: inline-block; margin-bottom: 8px; color: var(--orange); font-size: 12px; font-weight: 750; letter-spacing: .18em; }
+    h2 { margin: 0; color: var(--deep); font-family: "Songti SC", "STSong", serif; font-size: 27px; line-height: 1.35; letter-spacing: .02em; }
+    .lead { margin: 12px 0 24px; color: var(--muted); font-size: 15px; line-height: 1.75; }
+    .history { padding-left: 26px; border-left: 1px solid var(--line); }
+    .history-item { position: relative; padding: 0 0 26px 0; }
+    .history-item:last-child { padding-bottom: 0; }
+    .history-item::before { content: ""; position: absolute; left: -31px; top: 8px; width: 9px; height: 9px; border: 3px solid var(--paper); border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 1px var(--orange); }
+    .history time { color: var(--orange); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+    .history h3 { margin: 3px 0 7px; font-size: 18px; line-height: 1.45; }
+    .history p { margin: 0; color: #58645c; font-size: 15px; }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0; }
+    .stat { min-height: 126px; padding: 18px 16px; border-radius: 14px; background: var(--deep); color: white; }
+    .stat:nth-child(2) { background: var(--orange); }
+    .stat strong { display: block; font-family: Georgia, serif; font-size: 31px; line-height: 1.15; }
+    .stat span { display: block; margin-top: 9px; font-size: 13px; line-height: 1.55; color: rgba(255,255,255,.78); }
+    .quote { margin: 24px 0 0; padding: 22px; border-radius: 14px; color: #3e5748; background: #e8eee5; font-family: "Songti SC", "STSong", serif; font-size: 17px; line-height: 1.8; }
+    .quote b { color: var(--orange); }
+    .feature-list { display: grid; gap: 12px; margin-top: 24px; }
+    .feature { display: grid; grid-template-columns: 48px 1fr; gap: 14px; padding: 17px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,253,247,.72); }
+    .icon { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: #edf1e7; font-size: 23px; }
+    .feature h3 { margin: 0 0 4px; font-size: 17px; }
+    .feature p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.65; }
+    .flavour-card { position: relative; overflow: hidden; margin-top: 23px; padding: 28px 22px; border-radius: 18px; color: white; background: linear-gradient(145deg, #214532, #3e6e4d); }
+    .flavour-card::after { content: "陈"; position: absolute; right: -2px; bottom: -64px; color: rgba(255,255,255,.06); font-family: "Songti SC", serif; font-size: 170px; line-height: 1; }
+    .flavour-card h3 { position: relative; z-index: 1; margin: 0; font-family: "Songti SC", serif; font-size: 23px; }
+    .tags { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0; }
+    .tags span { padding: 7px 11px; border: 1px solid rgba(255,255,255,.22); border-radius: 999px; font-size: 13px; background: rgba(255,255,255,.08); }
+    .flavour-card p { position: relative; z-index: 1; margin: 0; color: rgba(255,255,255,.82); font-size: 14px; }
+    .rank { margin-top: 24px; padding: 22px 20px; border-radius: 14px; background: #fffaf0; border: 1px solid rgba(220,111,45,.16); }
+    .rank b { display: block; color: var(--orange); font-size: 20px; }
+    .rank p { margin: 8px 0 0; color: #6c675e; font-size: 14px; }
+    .season { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 23px; }
+    .season-item { padding: 18px 8px; text-align: center; border-radius: 12px; background: #eee8da; }
+    .season-item.active { color: white; background: var(--orange); transform: translateY(-5px); box-shadow: 0 12px 25px rgba(220,111,45,.22); }
+    .season-item b { display: block; font-size: 14px; }
+    .season-item span { display: block; margin-top: 5px; font-size: 11px; opacity: .72; }
+    .footer { padding: 44px 20px calc(96px + env(safe-area-inset-bottom)); }
+    .footer-main { display: flex; align-items: center; gap: 14px; }
+    .footer-mark { display: grid; place-items: center; width: 46px; height: 46px; flex: 0 0 auto; border: 1px solid var(--green); color: var(--green); font-family: "Songti SC", serif; font-size: 22px; }
+    .footer-main p { margin: 0; color: var(--green); font-size: 8px; letter-spacing: .22em; }
+    .footer-main h2 { margin: 5px 0 0; color: #3b4f43; font-family: "Songti SC", serif; font-size: 17px; font-weight: 500; }
+    .footer-back { display: inline-block; margin-top: 26px; color: var(--green); font-size: 13px; font-weight: 700; text-decoration: none; border-bottom: 1px solid rgba(53,95,69,.4); padding-bottom: 6px; }
+    .footer-back span { color: var(--orange); }
+    .dock { position: fixed; z-index: 9; left: 50%; bottom: 18px; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border: 1px solid rgba(255,255,255,.26); border-radius: 999px; background: rgba(25,51,36,.92); box-shadow: 0 10px 35px rgba(24,44,31,.3); backdrop-filter: blur(18px); color: white; text-decoration: none; font-size: 14px; font-weight: 700; letter-spacing: .04em; }
+    .dock:hover { background: rgba(25,51,36,.98); }
+    @media (min-width: 431px) { body { box-shadow: 0 0 70px rgba(0,0,0,.16); } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="topbar">
+      <a class="back" href="/ndd/" aria-label="返回产区地图">‹</a>
+      <div class="series">新会陈皮 · 产地志</div>
+      <div class="share">⌁</div>
+    </div>
+    <div class="hero-copy">
+      <div class="eyebrow">广东 · 江门 · 新会</div>
+      <h1>南坦岛</h1>
+      <p class="hero-sub">一座由江海共同写成的岛，也是一款甜糯陈皮的隐秘原乡。</p>
+      <div class="hero-meta"><span>江心岛产区</span><span>种柑 200+ 年</span></div>
+    </div>
+  </header>
+
+  <aside class="intro">
+    <div class="intro-mark">“</div>
+    <p>潮水浸润岛田，腐泥蓄住养分。南坦的柑，带着海风的清鲜；南坦的皮，慢慢陈出温润的糯甜。</p>
+    <small>旧称“潭江口的狗腩岛”</small>
+  </aside>
+
+  <main>
+    <section>
+      <span class="num">01 / 历史沿革</span>
+      <h2>从一叶渡船，到百年柑乡</h2>
+      <p class="lead">南坦岛由潭江、珠江与南海的泥浆冲积成陆。四面环水的地理，也塑造了这里独特的种植记忆。</p>
+      <div class="history">
+        <div class="history-item"><time>清代中叶</time><h3>岛上开始种柑</h3><p>水网与围田滋养柑树，种植历史延续至今已有二百余年。</p></div>
+        <div class="history-item"><time>旧时南坦</time><h3>“东甲路，南坦渡”</h3><p>村民依靠渡船运柑出村，江面上的往来成为一代人的共同记忆。</p></div>
+        <div class="history-item"><time>今日</time><h3>被保护的岛内柑园</h3><p>产量稳定却不算大，风味口碑更多由懂行的老饕口口相传。</p></div>
+      </div>
+    </section>
+
+    <section>
+      <span class="num">02 / 岛屿生态</span>
+      <h2>一片会呼吸的百年葵林</h2>
+      <p class="lead">南坦葵林生态湿地公园覆盖葵林、鱼塘、水田与柑围。俯瞰整座岛，像一块嵌在新会大地上的绿翡翠。</p>
+      <div class="stat-grid">
+        <div class="stat"><strong>1500<small>亩</small></strong><span>湿地公园总面积，保留多样水乡生态。</span></div>
+        <div class="stat"><strong>130–150<small>年</small></strong><span>岛上多数蒲葵树的树龄。</span></div>
+      </div>
+      <div class="quote">据记载，新会蒲葵种植<b>“始于晋，兴于明”</b>。这里保存着罕见的成规模百年蒲葵林。</div>
+    </section>
+
+    <section>
+      <span class="num">03 / 风土水土</span>
+      <h2>江心岛的极致潮汐</h2>
+      <p class="lead">咸淡水交汇、低滩围田与绵长浸润，共同构成“南坦糯”的风土底色。</p>
+      <div class="feature-list">
+        <div class="feature"><div class="icon">≈</div><div><h3>四面环水</h3><p>地势低洼，潮汐带来的咸淡水浸润更持久。</p></div></div>
+        <div class="feature"><div class="icon">◒</div><div><h3>狗腩田</h3><p>低滩围田腐泥厚、胶质足，土壤蓄水蓄肥。</p></div></div>
+        <div class="feature"><div class="icon">✦</div><div><h3>岛田稀缺</h3><p>有限产区、老种积累，形成难以复制的甜糯陈化。</p></div></div>
+      </div>
+    </section>
+
+    <section>
+      <span class="num">04 / 柑与陈皮</span>
+      <h2>“狗腩皮”的甜糯标杆</h2>
+      <p class="lead">南坦大红柑个大、蒂小、形扁、脐凹，皮薄而油室饱满；果肉清甜，通常在 11 月底至 12 月进入大红阶段。</p>
+      <div class="flavour-card">
+        <h3>从鲜香，到温润糯甜</h3>
+        <div class="tags"><span>新皮橙香</span><span>海风韵</span><span>糯甜胶质</span><span>金丝纹</span></div>
+        <p>新皮清鲜明亮，随时间陈化后，甜感更柔和，胶质感更显，纹理渐呈清晰的金丝感。</p>
+      </div>
+      <div class="rank"><b>产区里的甜糯隐藏款</b><p>“南坦糯”可比肩部分核心产区陈皮。它的价值逻辑，来自岛田稀缺、狗腩老种与独特的甜糯陈化。</p></div>
+    </section>
+
+    <section>
+      <span class="num">05 / 时令体验</span>
+      <h2>从青柑，到冬后柑</h2>
+      <p class="lead">每年 8 月至次年 1 月，是新会柑的采摘季。果实由青转红，每个阶段都有不同的香气与用途。</p>
+      <div class="season">
+        <div class="season-item"><b>8–9月</b><span>小青柑</span></div>
+        <div class="season-item"><b>10–11月</b><span>大青 / 二红</span></div>
+        <div class="season-item active"><b>11–12月</b><span>大红柑</span></div>
+        <div class="season-item"><b>12–1月</b><span>冬后柑</span></div>
+        <div class="season-item"><b>在岛上</b><span>鲜果采摘</span></div>
+        <div class="season-item"><b>在果园</b><span>非遗开皮</span></div>
+      </div>
+    </section>
+
+    </main>
+
+  <footer class="footer">
+    <div class="footer-main">
+      <span class="footer-mark">糯</span>
+      <div>
+        <p>XINHUI ORIGIN ARCHIVE</p>
+        <h2>每一片陈皮，都有自己的故乡。</h2>
+      </div>
+    </div>
+    <a class="footer-back" href="/ndd/">返回产区总览 <span>↗</span></a>
+  </footer>
+  <a class="dock" href="/ndd/">← 返回产区地图</a>
+  <script>
+    (function () {
+      // 按照当前月份高亮对应的成熟阶段（8-9月青柑 / 10-11月二红 / 12月大红 / 次年1月冬后）
+      var items = document.querySelectorAll('.season-item')
+      if (!items.length) return
+      var m = new Date().getMonth() + 1
+      var activeIndex = -1
+      if (m >= 8 && m <= 9) activeIndex = 0
+      else if (m >= 10 && m <= 11) activeIndex = 1
+      else if (m === 12) activeIndex = 2
+      else if (m === 1) activeIndex = 3
+      if (activeIndex >= 0) {
+        for (var i = 0; i < items.length; i++) items[i].classList.remove('active')
+        items[activeIndex].classList.add('active')
+      }
+    })()
+  </script>
+</body>
+</html>

@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && node scripts/assemble-ndd.mjs",
+    "build:static": "NEXT_PUBLIC_BASE_PATH=/ndd next build && NEXT_PUBLIC_BASE_PATH=/ndd node scripts/assemble-ndd.mjs",
+    "build:vercel": "NEXT_PUBLIC_BASE_PATH= VERCEL=1 next build && NEXT_PUBLIC_BASE_PATH= VERCEL=1 node scripts/assemble-ndd.mjs",
+    "build:static:root": "NEXT_PUBLIC_BASE_PATH= next build && NEXT_PUBLIC_BASE_PATH= node scripts/assemble-ndd.mjs",
     "start": "next start",
     "lint": "next lint"
   },

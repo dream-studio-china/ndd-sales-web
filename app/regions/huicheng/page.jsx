@@ -3,6 +3,7 @@ import Link from 'next/link'
 import ChenpiIntro from './ChenpiIntro'
 import RipenessStages from './RipenessStages'
 import styles from './page.module.css'
+import { BASE_PATH } from '../../../src/config'
 
 export const metadata = {
   title: '新会陈皮介绍 · 从青柑到冬后柑',
@@ -19,7 +20,7 @@ export default function HuichengChenpiPage() {
   return (
     <main className={styles.page}>
       <header className={styles.hero}>
-        <Image className={styles.heroImage} src="/ndd/assets/regions/huicheng-chenpi.webp" alt="从青柑到红柑及晒制完成的新会陈皮" fill priority sizes="(max-width: 680px) 100vw, 680px" />
+        <Image className={styles.heroImage} src={`${BASE_PATH}/assets/regions/huicheng-chenpi.webp`} alt="从青柑到红柑及晒制完成的新会陈皮" fill priority sizes="(max-width: 680px) 100vw, 680px" />
         <div className={styles.heroShade} />
         <nav className={styles.nav}>
           <Link href="/" aria-label="返回产区地图">←</Link>
