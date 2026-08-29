@@ -151,15 +151,15 @@ button { font: inherit; color: inherit; border: 0; cursor: pointer; }
 .map-compass { position: absolute; z-index: 4; right: 3px; top: 8%; display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid rgba(255,255,255,.17); border-radius: 50%; color: var(--lime); background: rgba(7,28,30,.7); font: 700 9px 'Barlow Condensed'; }
 .map-compass i { position: absolute; bottom: 3px; border: 3px solid transparent; border-top: 6px solid #73988f; }
 
-.region-dock { position: fixed; z-index: 20; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); width: auto; max-width: 536px; margin: auto; padding: 8px 14px 8px; border: 1px solid rgba(189,244,75,.16); border-radius: 24px; background: #0b2223; box-shadow: 0 -12px 42px rgba(0,0,0,.36), inset 0 1px rgba(255,255,255,.04); }
+.region-dock { position: fixed; z-index: 20; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); width: auto; max-width: 536px; margin: auto; padding: 8px 14px 14px; border: 1px solid rgba(189,244,75,.16); border-radius: 24px; background: #0b2223; box-shadow: 0 -12px 42px rgba(0,0,0,.36), inset 0 1px rgba(255,255,255,.04); }
 .zoom-controls { position: fixed; z-index: 12; top: max(14px, env(safe-area-inset-top)); right: 14px; display: grid; gap: 7px; }
 .zoom-controls button { display: grid; place-items: center; width: 39px; height: 39px; border: 1px solid rgba(210,255,222,.14); border-radius: 13px; color: #e9fff1; background: rgba(7,32,34,.72); box-shadow: 0 7px 18px rgba(0,0,0,.18); backdrop-filter: blur(10px); font-size: 22px; font-weight: 400; }
 .zoom-controls button:active { transform: scale(.92); background: rgba(39,91,66,.86); }
 .zoom-controls .zoom-reset { height: 33px; }
 .zoom-reset span { width: 13px; height: 13px; border: 1.5px solid var(--lime); border-radius: 50%; box-shadow: 0 0 7px rgba(189,244,75,.35); }
 .dock-grip { width: 30px; height: 3px; margin: 0 auto 7px; border-radius: 3px; background: #496b63; }
-.dock-close { position: absolute; top: 12px; right: 12px; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 10px; color: #81a79d; background: rgba(255,255,255,.06); }
-.dock-copy { display: flex; align-items: center; gap: 9px; min-height: 36px; padding: 0 38px 0 4px; }
+.dock-close { display: grid; place-items: center; flex: 0 0 auto; width: 30px; height: 30px; border-radius: 10px; color: #81a79d; background: rgba(255,255,255,.06); }
+.dock-copy { display: flex; align-items: center; gap: 9px; min-height: 36px; padding: 0 4px; }
 .dock-badge { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 12px; font-size: 20px; background: linear-gradient(145deg, #326e55, #153f39); }
 .dock-copy small, .dock-copy h3 { display: block; margin: 0; }
 .dock-copy small { color: #759c92; font-size: 9px; }

@@ -101,16 +101,61 @@ function MapRegion({ region, selected, onClick }) {
 }
 
 function isMiniProgram() {
-  // 运行在微信小程序 web-view 中时，window.__wxjs_environment === 'miniprogram'
-  return typeof window !== 'undefined' && window.__wxjs_environment === 'miniprogram'
+  if (typeof window === 'undefined') return false
+  // 真实小程序环境
+  if (window.__wxjs_environment === 'miniprogram') return true
+  // 本地模拟：?mock=miniprogram 或 ?miniprogram 或 localStorage mockMiniProgram=1
+  try {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('mock') === 'miniprogram' || params.has('miniprogram') || params.has('mockMiniProgram')) return true
+    if (window.localStorage?.getItem('mockMiniProgram') === '1') return true
+  } catch {}
+  return false
 }
 
 function jumpToMiniProgram(region) {
-  // 从 H5 web-view 跳转到小程序原生购买页（页面按产区 slug 展示时令产品）
+  const url = `/pages/sale/region?slug=${region.id}`
   try {
-    window.wx?.miniprogram?.navigateTo?.({ url: `/pages/sale/region?slug=${region.id}` })
-  } catch {
-    // 非小程序环境忽略
+    if (window.wx?.miniprogram?.navigateTo) {
+      window.wx.miniprogram.navigateTo({ url })
+      return
+    }
+  } catch {}
+  // 模拟环境：无真实 wx 对象时给出反馈，便于本地验证
+  if (isMiniProgram()) {
+    // 注入 mock wx 以便二次点击也能走真实分支
+    try {
+      window.wx = window.wx || {}
+      window.wx.miniprogram = window.wx.miniprogram || {
+        navigateTo: ({ url: u }) => {
+          // eslint-disable-next-line no-alert
+          alert(`[模拟小程序] 跳转 ${u || url}`)
+          console.log('[mock miniprogram] navigateTo', u || url)
+        },
+      }
+      window.wx.miniprogram.navigateTo({ url })
+    } catch {
+      // eslint-disable-next-line no-alert
+      alert(`[模拟小程序] 跳转 ${url}`)
+    }
+  }
+}
+
+// 暴露调试切换到全局，便于控制台快速模拟
+if (typeof window !== 'undefined') {
+  // @ts-ignore
+  window.enableMockMiniProgram = () => {
+    try { window.localStorage.setItem('mockMiniProgram', '1'); window.location.reload() } catch {}
+  }
+  // @ts-ignore
+  window.disableMockMiniProgram = () => {
+    try {
+      window.localStorage.removeItem('mockMiniProgram')
+      const url = new URL(window.location.href)
+      url.searchParams.delete('mock'); url.searchParams.delete('miniprogram'); url.searchParams.delete('mockMiniProgram')
+      window.history.replaceState({}, '', url.toString())
+      window.location.reload()
+    } catch {}
   }
 }
 
@@ -387,10 +432,10 @@ function Overview({ onEnterRegion }) {
       {selected && (
         <section className="region-dock" key={selected.id} aria-live="polite">
             <div className="dock-grip" />
-            <button className="dock-close" aria-label="关闭区域信息" onClick={() => setSelected(null)}><Icon name="close" size={17} /></button>
             <div className="dock-copy">
               <div><small>已选择产区</small><h3>{selected.name}</h3></div>
               <span className="trend">{selected.trend}</span>
+              <button className="dock-close" aria-label="关闭区域信息" onClick={() => setSelected(null)}><Icon name="close" size={17} /></button>
             </div>
             <div className="dock-stats">
               <div><span>本月产量</span><strong>{(selected.sales * 1000).toLocaleString()}<small>斤</small></strong></div>
