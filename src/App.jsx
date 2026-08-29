@@ -400,7 +400,11 @@ function Overview({ onEnterRegion }) {
   }
 
   return (
-    <main className="app-shell overview-screen">
+    <main
+      className="app-shell overview-screen"
+      onContextMenu={(e) => e.preventDefault()}
+      onSelectStart={(e) => e.preventDefault()}
+    >
       <div className="ambient ambient-one" />
       <div className="ambient ambient-two" />
       {/* 平衡预加载：空闲时低优预取全量内页 Hero，首屏地图不受影响 */}
@@ -414,6 +418,7 @@ function Overview({ onEnterRegion }) {
       <section
         ref={mapSectionRef}
         className="map-section"
+        onContextMenu={(e) => e.preventDefault()}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
